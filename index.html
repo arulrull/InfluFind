@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1E3A8A">
+    <meta name="description" content="InfluFind - Platform pencarian influencer untuk UMKM dan perusahaan">
+    <title>InfluFind - Temukan Influencer Terbaik</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --secondary: #3B82F6;
+            --background: #F8FAFC;
+            --surface: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --success: #16A34A;
+            --warning: #F59E0B;
+            --danger: #DC2626;
+            --shadow: rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            padding-bottom: 70px;
+            overflow-x: hidden;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.2s ease-in;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Auth Pages */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .auth-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .auth-logo h1 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .auth-logo p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #1e40af;
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Main App Layout */
+        .app-header {
+            background: var(--surface);
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .app-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .app-logo i {
+            font-size: 24px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            box-shadow: 0 -2px 10px var(--shadow);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .nav-item i {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .nav-item.active {
+            color: var(--secondary);
+        }
+        
+        .nav-item .badge {
+            position: absolute;
+            top: 4px;
+            right: 20px;
+            background: var(--danger);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        /* Content Container */
+        .content {
+            padding: 16px;
+            max-width: 100%;
+        }
+        
+        /* Home Page */
+        .hero-slider {
+            margin: -16px -16px 16px -16px;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+        }
+        
+        .hero-slide {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .hero-slide h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .hero-slide p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .search-bar {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 2px 8px var(--shadow);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .search-bar i {
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .filter-chips::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .chip {
+            background: var(--surface);
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .chip.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* Influencer Card */
+        .influencer-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.2s;
+        }
+        
+        .influencer-card:active {
+            transform: scale(0.98);
+        }
+        
+        .influencer-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .influencer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #E2E8F0;
+        }
+        
+        .influencer-info {
+            flex: 1;
+        }
+        
+        .influencer-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .influencer-category {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .influencer-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+        }
+        
+        .stat-item i {
+            font-size: 14px;
+        }
+        
+        .influencer-meta {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-badge {
+            background: #F1F5F9;
+            color: var(--text-secondary);
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+        
+        .influencer-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        .influencer-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .btn-secondary {
+            background: #F1F5F9;
+            color: var(--text-primary);
+            border: none;
+        }
+        
+        .btn-secondary:hover {
+            background: #E2E8F0;
+        }
+        
+        /* Chat Page */
+        .chat-list-item {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .chat-list-item:active {
+            transform: scale(0.98);
+        }
+        
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+        }
+        
+        .chat-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        
+        .chat-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .chat-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        
+        .chat-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .chat-unread {
+            background: var(--secondary);
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+        
+        .chat-room {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 70px);
+        }
+        
+        .chat-room-header {
+            background: var(--surface);
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .chat-back {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        
+        .message {
+            display: flex;
+            margin-bottom: 16px;
+        }
+        
+        .message.sent {
+            justify-content: flex-end;
+        }
+        
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .message.received .message-bubble {
+            background: #F1F5F9;
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
+        
+        .message.sent .message-bubble {
+            background: var(--secondary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            text-align: right;
+        }
+        
+        .chat-input {
+            background: var(--surface);
+            padding: 12px 16px;
+            box-shadow: 0 -2px 8px var(--shadow);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+            padding: 10px 16px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .chat-input button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        /* Transaction Page */
+        .transaction-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+        
+        .tab-btn {
+            background: var(--surface);
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .transaction-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+        
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+        
+        .transaction-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .transaction-date {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .status-active {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+        
+        .status-completed {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .status-cancelled {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        .transaction-details {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        
+        .transaction-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        .transaction-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        /* Profile Page */
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 32px 16px;
+            text-align: center;
+            color: white;
+            margin: -16px -16px 16px -16px;
+        }
+        
+        .profile-avatar-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            border: 4px solid white;
+            overflow: hidden;
+        }
+        
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .profile-email {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .profile-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .profile-menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-menu-item i {
+            width: 40px;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-menu-item span {
+            flex: 1;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        
+        .profile-menu-item .badge {
+            font-size: 12px;
+            padding: 4px 10px;
+        }
+        
+        /* Modal */
+        .modal-content {
+            border-radius: 16px;
+            border: none;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #F1F5F9;
+            padding: 20px;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            margin-bottom: 16px;
+        }
+        
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .empty-state p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .skeleton-card {
+            height: 200px;
+            margin-bottom: 12px;
+        }
+        
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        .toast {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            margin-bottom: 8px;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 576px) {
+            .content {
+                padding: 12px;
+            }
+            
+            .auth-card {
+                padding: 24px;
+            }
+        }
+        
+        /* Install Prompt */
+        .install-prompt {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .install-prompt i {
+            font-size: 32px;
+            color: var(--secondary);
+        }
+        
+        .install-prompt-text {
+            flex: 1;
+        }
+        
+        .install-prompt h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .install-prompt p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Login Page -->
+    <div class="page active" id="loginPage">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-logo">
+                    <h1><i class="bi bi-search-heart"></i> InfluFind</h1>
+                    <p>Platform Pencarian Influencer</p>
+                </div>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="nama@email.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Minimal 6 karakter" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Ingat Saya</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Masuk</button>
+                    <button type="button" class="btn btn-outline-primary w-100" onclick="showPage('registerPage')">
+                        Belum punya akun? Daftar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div class="page" id="registerPage">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-logo">
+                    <h1><i class="bi bi-search-heart"></i> InfluFind</h1>
+                    <p>Daftar Akun Baru</p>
+                </div>
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="registerName" placeholder="Nama lengkap Anda" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" placeholder="nama@email.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="Minimal 6 karakter" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" class="form-control" id="registerPasswordConfirm" placeholder="Ulangi password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Daftar</button>
+                    <button type="button" class="btn btn-outline-primary w-100" onclick="showPage('loginPage')">
+                        Sudah punya akun? Masuk
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div class="page" id="homePage">
+        <div class="app-header">
+            <div class="app-logo">
+                <i class="bi bi-search-heart"></i>
+                <span>InfluFind</span>
+            </div>
+        </div>
+        
+        <div class="hero-slider">
+            <div class="hero-slide">
+                <h2>🎯 Temukan Influencer Terbaik</h2>
+                <p>Untuk kesuksesan bisnis Anda</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Install Prompt (Hidden by default) -->
+            <div class="install-prompt" id="installPrompt" style="display: none;">
+                <i class="bi bi-download"></i>
+                <div class="install-prompt-text">
+                    <h4>Install InfluFind</h4>
+                    <p>Akses lebih cepat dari layar utama</p>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="installApp()">Install</button>
+            </div>
+            
+            <div class="search-bar">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Cari influencer..." id="searchInput">
+            </div>
+            
+            <div class="filter-chips">
+                <div class="chip active" data-filter="all">Semua</div>
+                <div class="chip" data-filter="fashion">Fashion</div>
+                <div class="chip" data-filter="food">Kuliner</div>
+                <div class="chip" data-filter="tech">Teknologi</div>
+                <div class="chip" data-filter="beauty">Kecantikan</div>
+                <div class="chip" data-filter="travel">Travel</div>
+                <div class="chip" data-filter="lifestyle">Lifestyle</div>
+            </div>
+            
+            <div id="influencerList"></div>
+        </div>
+    </div>
+
+    <!-- Chat Page -->
+    <div class="page" id="chatPage">
+        <div class="app-header">
+            <div class="app-logo">
+                <i class="bi bi-chat-dots"></i>
+                <span>Chat</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div id="chatList"></div>
+        </div>
+    </div>
+
+    <!-- Chat Room -->
+    <div class="page" id="chatRoomPage">
+        <div class="chat-room">
+            <div class="chat-room-header">
+                <i class="bi bi-arrow-left chat-back" onclick="showPage('chatPage')"></i>
+                <img src="" alt="" class="chat-avatar" id="chatRoomAvatar">
+                <div class="chat-content">
+                    <div class="chat-name" id="chatRoomName"></div>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages"></div>
+            
+            <div class="chat-input">
+                <input type="text" placeholder="Ketik pesan..." id="messageInput">
+                <button onclick="sendMessage()"><i class="bi bi-send-fill"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Page -->
+    <div class="page" id="transactionPage">
+        <div class="app-header">
+            <div class="app-logo">
+                <i class="bi bi-receipt"></i>
+                <span>Transaksi</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="transaction-tabs">
+                <button class="tab-btn active" data-status="all">Semua</button>
+                <button class="tab-btn" data-status="pending">Menunggu</button>
+                <button class="tab-btn" data-status="active">Aktif</button>
+                <button class="tab-btn" data-status="completed">Selesai</button>
+            </div>
+            
+            <div id="transactionList"></div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div class="page" id="profilePage">
+        <div class="profile-header">
+            <div class="profile-avatar-wrapper">
+                <img src="https://ui-avatars.com/api/?name=User&background=3B82F6&color=fff&size=200" alt="Avatar" class="profile-avatar" id="profileAvatar">
+            </div>
+            <div class="profile-name" id="profileName">User</div>
+            <div class="profile-email" id="profileEmail">user@email.com</div>
+        </div>
+        
+        <div class="content">
+            <div class="profile-section">
+                <div class="section-title">Akun</div>
+                <div class="profile-menu-item" onclick="editProfile()">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Edit Profil</span>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+                <div class="profile-menu-item">
+                    <i class="bi bi-building"></i>
+                    <span>Informasi Perusahaan</span>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="section-title">Aktivitas</div>
+                <div class="profile-menu-item">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Riwayat Kerja Sama</span>
+                    <span class="badge bg-primary" id="historyCount">0</span>
+                </div>
+                <div class="profile-menu-item">
+                    <i class="bi bi-star"></i>
+                    <span>Ulasan Saya</span>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+                <div class="profile-menu-item">
+                    <i class="bi bi-heart"></i>
+                    <span>Influencer Favorit</span>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="section-title">Pengaturan</div>
+                <div class="profile-menu-item">
+                    <i class="bi bi-bell"></i>
+                    <span>Notifikasi</span>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+                <div class="profile-menu-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span>Keamanan</span>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+                <div class="profile-menu-item">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Bantuan</span>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="profile-menu-item" onclick="logout()" style="color: var(--danger);">
+                    <i class="bi bi-box-arrow-right" style="color: var(--danger);"></i>
+                    <span>Keluar</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" data-page="homePage">
+            <i class="bi bi-house-door-fill"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item" data-page="chatPage">
+            <i class="bi bi-chat-dots-fill"></i>
+            <span>Chat</span>
+            <span class="badge" id="chatBadge" style="display: none;">0</span>
+        </a>
+        <a href="#" class="nav-item" data-page="transactionPage">
+            <i class="bi bi-receipt"></i>
+            <span>Transaksi</span>
+        </a>
+        <a href="#" class="nav-item" data-page="profilePage">
+            <i class="bi bi-person-fill"></i>
+            <span>Profil</span>
+        </a>
+    </div>
+
+    <!-- Modals -->
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="editName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Detail Modal -->
+    <div class="modal fade" id="transactionDetailModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Transaksi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="transactionDetailContent">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed'));
+        }
+
+        // Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installPrompt').style.display = 'flex';
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installPrompt').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        // Data Storage
+        const APP_DATA = {
+            users: JSON.parse(localStorage.getItem('influfind_users')) || [],
+            currentUser: JSON.parse(localStorage.getItem('influfind_session')) || null,
+            chats: JSON.parse(localStorage.getItem('influfind_chats')) || [],
+            transactions: JSON.parse(localStorage.getItem('influfind_transactions')) || []
+        };
+
+        // Dummy Influencer Data (50 influencers)
+        const INFLUENCERS = [
+            { id: 1, name: 'Rina Fashionista', category: 'Fashion', platform: 'Instagram', followers: '250K', price: 'Rp 5.000.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=1' },
+            { id: 2, name: 'Budi Foodie', category: 'Kuliner', platform: 'TikTok', followers: '180K', price: 'Rp 3.500.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=2' },
+            { id: 3, name: 'Sari Beauty Expert', category: 'Kecantikan', platform: 'YouTube', followers: '320K', price: 'Rp 7.000.000', location: 'Surabaya', image: 'https://i.pravatar.cc/150?img=3' },
+            { id: 4, name: 'Andi Tech Guru', category: 'Teknologi', platform: 'Instagram', followers: '150K', price: 'Rp 4.000.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=4' },
+            { id: 5, name: 'Maya Traveler', category: 'Travel', platform: 'YouTube', followers: '280K', price: 'Rp 6.000.000', location: 'Bali', image: 'https://i.pravatar.cc/150?img=5' },
+            { id: 6, name: 'Doni Lifestyle', category: 'Lifestyle', platform: 'TikTok', followers: '220K', price: 'Rp 4.500.000', location: 'Yogyakarta', image: 'https://i.pravatar.cc/150?img=6' },
+            { id: 7, name: 'Lina Fashion Icon', category: 'Fashion', platform: 'Instagram', followers: '300K', price: 'Rp 6.500.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=7' },
+            { id: 8, name: 'Rudi Culinary', category: 'Kuliner', platform: 'YouTube', followers: '200K', price: 'Rp 4.000.000', location: 'Semarang', image: 'https://i.pravatar.cc/150?img=8' },
+            { id: 9, name: 'Nina Beauty Vlogger', category: 'Kecantikan', platform: 'TikTok', followers: '270K', price: 'Rp 5.500.000', location: 'Medan', image: 'https://i.pravatar.cc/150?img=9' },
+            { id: 10, name: 'Agus Gadget Review', category: 'Teknologi', platform: 'YouTube', followers: '190K', price: 'Rp 4.200.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=10' },
+            { id: 11, name: 'Dewi Adventure', category: 'Travel', platform: 'Instagram', followers: '240K', price: 'Rp 5.200.000', location: 'Bali', image: 'https://i.pravatar.cc/150?img=11' },
+            { id: 12, name: 'Eko Daily Life', category: 'Lifestyle', platform: 'TikTok', followers: '210K', price: 'Rp 4.300.000', location: 'Surabaya', image: 'https://i.pravatar.cc/150?img=12' },
+            { id: 13, name: 'Tina Style Queen', category: 'Fashion', platform: 'YouTube', followers: '260K', price: 'Rp 5.800.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=13' },
+            { id: 14, name: 'Bambang Food Hunter', category: 'Kuliner', platform: 'Instagram', followers: '170K', price: 'Rp 3.800.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=14' },
+            { id: 15, name: 'Ayu Makeup Artist', category: 'Kecantikan', platform: 'Instagram', followers: '290K', price: 'Rp 6.200.000', location: 'Surabaya', image: 'https://i.pravatar.cc/150?img=15' },
+            { id: 16, name: 'Wawan Tech Reviewer', category: 'Teknologi', platform: 'TikTok', followers: '160K', price: 'Rp 3.900.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=16' },
+            { id: 17, name: 'Sinta Explorer', category: 'Travel', platform: 'YouTube', followers: '250K', price: 'Rp 5.500.000', location: 'Lombok', image: 'https://i.pravatar.cc/150?img=17' },
+            { id: 18, name: 'Faisal Modern Life', category: 'Lifestyle', platform: 'Instagram', followers: '230K', price: 'Rp 4.700.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=18' },
+            { id: 19, name: 'Vina Trendsetter', category: 'Fashion', platform: 'TikTok', followers: '280K', price: 'Rp 6.000.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=19' },
+            { id: 20, name: 'Hendra Taste Master', category: 'Kuliner', platform: 'YouTube', followers: '195K', price: 'Rp 4.100.000', location: 'Yogyakarta', image: 'https://i.pravatar.cc/150?img=20' },
+            { id: 21, name: 'Ratna Glow Up', category: 'Kecantikan', platform: 'TikTok', followers: '265K', price: 'Rp 5.700.000', location: 'Bali', image: 'https://i.pravatar.cc/150?img=21' },
+            { id: 22, name: 'Dimas Gadget Pro', category: 'Teknologi', platform: 'YouTube', followers: '175K', price: 'Rp 4.000.000', location: 'Surabaya', image: 'https://i.pravatar.cc/150?img=22' },
+            { id: 23, name: 'Putri Wanderlust', category: 'Travel', platform: 'Instagram', followers: '255K', price: 'Rp 5.600.000', location: 'Bali', image: 'https://i.pravatar.cc/150?img=23' },
+            { id: 24, name: 'Irfan Urban Living', category: 'Lifestyle', platform: 'YouTube', followers: '215K', price: 'Rp 4.400.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=24' },
+            { id: 25, name: 'Citra Fashion Blogger', category: 'Fashion', platform: 'Instagram', followers: '270K', price: 'Rp 5.900.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=25' },
+            { id: 26, name: 'Joko Culinary Tour', category: 'Kuliner', platform: 'TikTok', followers: '185K', price: 'Rp 3.900.000', location: 'Malang', image: 'https://i.pravatar.cc/150?img=26' },
+            { id: 27, name: 'Mega Beauty Tips', category: 'Kecantikan', platform: 'YouTube', followers: '285K', price: 'Rp 6.100.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=27' },
+            { id: 28, name: 'Yoga Tech Insights', category: 'Teknologi', platform: 'Instagram', followers: '165K', price: 'Rp 3.950.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=28' },
+            { id: 29, name: 'Dina Travel Diary', category: 'Travel', platform: 'TikTok', followers: '245K', price: 'Rp 5.300.000', location: 'Lombok', image: 'https://i.pravatar.cc/150?img=29' },
+            { id: 30, name: 'Arif Life Hacks', category: 'Lifestyle', platform: 'Instagram', followers: '225K', price: 'Rp 4.600.000', location: 'Surabaya', image: 'https://i.pravatar.cc/150?img=30' },
+            { id: 31, name: 'Yuni Style Guru', category: 'Fashion', platform: 'YouTube', followers: '295K', price: 'Rp 6.300.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=31' },
+            { id: 32, name: 'Teguh Food Vlog', category: 'Kuliner', platform: 'Instagram', followers: '190K', price: 'Rp 4.050.000', location: 'Semarang', image: 'https://i.pravatar.cc/150?img=32' },
+            { id: 33, name: 'Intan Beauty Secret', category: 'Kecantikan', platform: 'TikTok', followers: '275K', price: 'Rp 5.850.000', location: 'Medan', image: 'https://i.pravatar.cc/150?img=33' },
+            { id: 34, name: 'Bayu Digital Life', category: 'Teknologi', platform: 'YouTube', followers: '180K', price: 'Rp 4.100.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=34' },
+            { id: 35, name: 'Lia Adventure Time', category: 'Travel', platform: 'Instagram', followers: '260K', price: 'Rp 5.700.000', location: 'Bali', image: 'https://i.pravatar.cc/150?img=35' },
+            { id: 36, name: 'Reza Modern Way', category: 'Lifestyle', platform: 'TikTok', followers: '220K', price: 'Rp 4.500.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=36' },
+            { id: 37, name: 'Fitri Chic Style', category: 'Fashion', platform: 'Instagram', followers: '265K', price: 'Rp 5.750.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=37' },
+            { id: 38, name: 'Alif Gastronomy', category: 'Kuliner', platform: 'YouTube', followers: '200K', price: 'Rp 4.200.000', location: 'Yogyakarta', image: 'https://i.pravatar.cc/150?img=38' },
+            { id: 39, name: 'Novia Skin Care', category: 'Kecantikan', platform: 'Instagram', followers: '280K', price: 'Rp 6.000.000', location: 'Surabaya', image: 'https://i.pravatar.cc/150?img=39' },
+            { id: 40, name: 'Rizki Tech Talk', category: 'Teknologi', platform: 'TikTok', followers: '170K', price: 'Rp 4.000.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=40' },
+            { id: 41, name: 'Kirana Journey', category: 'Travel', platform: 'YouTube', followers: '250K', price: 'Rp 5.500.000', location: 'Bali', image: 'https://i.pravatar.cc/150?img=41' },
+            { id: 42, name: 'Fajar Daily Tips', category: 'Lifestyle', platform: 'Instagram', followers: '235K', price: 'Rp 4.750.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=42' },
+            { id: 43, name: 'Diana Fashion Week', category: 'Fashion', platform: 'TikTok', followers: '290K', price: 'Rp 6.200.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=43' },
+            { id: 44, name: 'Surya Eat Well', category: 'Kuliner', platform: 'Instagram', followers: '195K', price: 'Rp 4.100.000', location: 'Malang', image: 'https://i.pravatar.cc/150?img=44' },
+            { id: 45, name: 'Kartika Beauty World', category: 'Kecantikan', platform: 'YouTube', followers: '285K', price: 'Rp 6.050.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=45' },
+            { id: 46, name: 'Galih Tech Zone', category: 'Teknologi', platform: 'Instagram', followers: '175K', price: 'Rp 4.050.000', location: 'Surabaya', image: 'https://i.pravatar.cc/150?img=46' },
+            { id: 47, name: 'Anggun Travel More', category: 'Travel', platform: 'TikTok', followers: '255K', price: 'Rp 5.600.000', location: 'Lombok', image: 'https://i.pravatar.cc/150?img=47' },
+            { id: 48, name: 'Hafiz Smart Living', category: 'Lifestyle', platform: 'YouTube', followers: '225K', price: 'Rp 4.650.000', location: 'Bandung', image: 'https://i.pravatar.cc/150?img=48' },
+            { id: 49, name: 'Melinda Fashionista', category: 'Fashion', platform: 'Instagram', followers: '275K', price: 'Rp 5.900.000', location: 'Jakarta', image: 'https://i.pravatar.cc/150?img=49' },
+            { id: 50, name: 'Zaki Food Journey', category: 'Kuliner', platform: 'TikTok', followers: '205K', price: 'Rp 4.300.000', location: 'Semarang', image: 'https://i.pravatar.cc/150?img=50' }
+        ];
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('influfind_users', JSON.stringify(APP_DATA.users));
+            localStorage.setItem('influfind_session', JSON.stringify(APP_DATA.currentUser));
+            localStorage.setItem('influfind_chats', JSON.stringify(APP_DATA.chats));
+            localStorage.setItem('influfind_transactions', JSON.stringify(APP_DATA.transactions));
+        }
+
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="bi bi-${type === 'success' ? 'check-circle-fill' : type === 'error' ? 'x-circle-fill' : 'info-circle-fill'}" style="font-size: 24px; color: var(--${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'secondary'});"></i>
+                    <span style="flex: 1;">${message}</span>
+                </div>
+            `;
+            document.getElementById('toastContainer').appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update bottom nav
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.page === pageId) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Load page content
+            if (pageId === 'homePage') loadInfluencers();
+            if (pageId === 'chatPage') loadChats();
+            if (pageId === 'transactionPage') loadTransactions();
+            if (pageId === 'profilePage') loadProfile();
+        }
+
+        // Bottom Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = item.dataset.page;
+                if (page) showPage(page);
+            });
+        });
+
+        // Register Form
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerPasswordConfirm').value;
+            
+            // Validation
+            if (password.length < 6) {
+                showToast('Password minimal 6 karakter', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showToast('Password tidak cocok', 'error');
+                return;
+            }
+            
+            // Check if email exists
+            if (APP_DATA.users.find(u => u.email === email)) {
+                showToast('Email sudah terdaftar', 'error');
+                return;
+            }
+            
+            // Create user
+            const user = {
+                id: Date.now(),
+                name,
+                email,
+                password: btoa(password), // Simple encoding
+                createdAt: new Date().toISOString()
+            };
+            
+            APP_DATA.users.push(user);
+            saveData();
+            
+            showToast('Registrasi berhasil! Silakan login', 'success');
+            showPage('loginPage');
+        });
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            const user = APP_DATA.users.find(u => 
+                u.email === email && u.password === btoa(password)
+            );
+            
+            if (!user) {
+                showToast('Email atau password salah', 'error');
+                return;
+            }
+            
+            // Create session
+            APP_DATA.currentUser = {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                rememberMe
+            };
+            
+            saveData();
+            showToast('Login berhasil!', 'success');
+            showPage('homePage');
+        });
+
+        // Check Auth
+        function checkAuth() {
+            if (APP_DATA.currentUser) {
+                showPage('homePage');
+            } else {
+                showPage('loginPage');
+            }
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Yakin ingin keluar?')) {
+                APP_DATA.currentUser = null;
+                localStorage.removeItem('influfind_session');
+                showToast('Anda telah keluar', 'info');
+                showPage('loginPage');
+            }
+        }
+
+        // Load Influencers
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        function loadInfluencers() {
+            const list = document.getElementById('influencerList');
+            let filtered = INFLUENCERS;
+            
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(inf => 
+                    inf.category.toLowerCase() === currentFilter.toLowerCase()
+                );
+            }
+            
+            // Apply search
+            if (searchQuery) {
+                filtered = filtered.filter(inf =>
+                    inf.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    inf.category.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+            
+            if (filtered.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="bi bi-search"></i>
+                        <h3>Tidak ada hasil</h3>
+                        <p>Coba kata kunci lain</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = filtered.map(inf => `
+                <div class="influencer-card">
+                    <div class="influencer-header">
+                        <img src="${inf.image}" alt="${inf.name}" class="influencer-avatar">
+                        <div class="influencer-info">
+                            <div class="influencer-name">${inf.name}</div>
+                            <div class="influencer-category">${inf.category} • ${inf.platform}</div>
+                            <div class="influencer-stats">
+                                <div class="stat-item">
+                                    <i class="bi bi-people-fill"></i>
+                                    <span>${inf.followers}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>${inf.location}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="influencer-price">${inf.price}</div>
+                    <div class="influencer-actions">
+                        <button class="btn btn-secondary btn-sm flex-fill" onclick="startChat(${inf.id})">
+                            <i class="bi bi-chat-dots"></i> Chat
+                        </button>
+                        <button class="btn btn-primary btn-sm flex-fill" onclick="createTransaction(${inf.id})">
+                            <i class="bi bi-briefcase"></i> Ajukan
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            loadInfluencers();
+        });
+
+        // Filter Chips
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentFilter = chip.dataset.filter;
+                loadInfluencers();
+            });
+        });
+
+        // Start Chat
+        function startChat(influencerId) {
+            const influencer = INFLUENCERS.find(i => i.id === influencerId);
+            if (!influencer) return;
+            
+            // Check if chat exists
+            let chat = APP_DATA.chats.find(c => c.influencerId === influencerId);
+            
+            if (!chat) {
+                chat = {
+                    id: Date.now(),
+                    influencerId,
+                    influencerName: influencer.name,
+                    influencerImage: influencer.image,
+                    messages: [
+                        {
+                            id: 1,
+                            sender: 'influencer',
+                            text: `Halo! Terima kasih sudah menghubungi saya. Ada yang bisa saya bantu?`,
+                            time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+                        }
+                    ],
+                    lastMessage: `Halo! Terima kasih sudah menghubungi saya.`,
+                    lastTime: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+                    unread: 1
+                };
+                APP_DATA.chats.push(chat);
+                saveData();
+            }
+            
+            openChatRoom(chat.id);
+        }
+
+        // Load Chats
+        function loadChats() {
+            const list = document.getElementById('chatList');
+            
+            if (APP_DATA.chats.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="bi bi-chat-dots"></i>
+                        <h3>Belum ada chat</h3>
+                        <p>Mulai chat dengan influencer</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = APP_DATA.chats.map(chat => `
+                <div class="chat-list-item" onclick="openChatRoom(${chat.id})">
+                    <img src="${chat.influencerImage}" alt="${chat.influencerName}" class="chat-avatar">
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <div class="chat-name">${chat.influencerName}</div>
+                            <div class="chat-time">${chat.lastTime}</div>
+                        </div>
+                        <div class="chat-preview">${chat.lastMessage}</div>
+                    </div>
+                    ${chat.unread > 0 ? `<div class="chat-unread">${chat.unread}</div>` : ''}
+                </div>
+            `).join('');
+            
+            // Update badge
+            const totalUnread = APP_DATA.chats.reduce((sum, chat) => sum + chat.unread, 0);
+            const badge = document.getElementById('chatBadge');
+            if (totalUnread > 0) {
+                badge.textContent = totalUnread;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Open Chat Room
+        let currentChatId = null;
+
+        function openChatRoom(chatId) {
+            currentChatId = chatId;
+            const chat = APP_DATA.chats.find(c => c.id === chatId);
+            if (!chat) return;
+            
+            // Mark as read
+            chat.unread = 0;
+            saveData();
+            
+            document.getElementById('chatRoomAvatar').src = chat.influencerImage;
+            document.getElementById('chatRoomName').textContent = chat.influencerName;
+            
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = chat.messages.map(msg => `
+                <div class="message ${msg.sender === 'user' ? 'sent' : 'received'}">
+                    <div class="message-bubble">
+                        ${msg.text}
+                        <div class="message-time">${msg.time}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            showPage('chatRoomPage');
+        }
+
+        // Send Message
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text || !currentChatId) return;
+            
+            const chat = APP_DATA.chats.find(c => c.id === currentChatId);
+            if (!chat) return;
+            
+            const message = {
+                id: Date.now(),
+                sender: 'user',
+                text,
+                time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+            };
+            
+            chat.messages.push(message);
+            chat.lastMessage = text;
+            chat.lastTime = message.time;
+            saveData();
+            
+            input.value = '';
+            openChatRoom(currentChatId);
+            
+            // Auto reply after 2 seconds
+            setTimeout(() => {
+                const replies = [
+                    'Terima kasih atas pesannya! Saya akan segera merespons.',
+                    'Baik, saya mengerti. Bisa tolong berikan detail lebih lanjut?',
+                    'Saya tertarik dengan penawaran ini. Mari kita diskusikan lebih lanjut.',
+                    'Oke, noted. Saya akan cek dan kabari Anda segera.'
+                ];
+                
+                const reply = {
+                    id: Date.now(),
+                    sender: 'influencer',
+                    text: replies[Math.floor(Math.random() * replies.length)],
+                    time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+                };
+                
+                chat.messages.push(reply);
+                chat.lastMessage = reply.text;
+                chat.lastTime = reply.time;
+                chat.unread = 1;
+                saveData();
+                
+                if (currentChatId === chat.id) {
+                    openChatRoom(currentChatId);
+                }
+            }, 2000);
+        }
+
+        // Enter to send
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Create Transaction
+        function createTransaction(influencerId) {
+            const influencer = INFLUENCERS.find(i => i.id === influencerId);
+            if (!influencer) return;
+            
+            const transaction = {
+                id: Date.now(),
+                influencerId,
+                influencerName: influencer.name,
+                influencerImage: influencer.image,
+                category: influencer.category,
+                price: influencer.price,
+                status: 'pending',
+                date: new Date().toLocaleDateString('id-ID'),
+                details: 'Campaign promosi produk melalui Instagram post dan story'
+            };
+            
+            APP_DATA.transactions.push(transaction);
+            saveData();
+            
+            showToast('Penawaran berhasil diajukan!', 'success');
+            showPage('transactionPage');
+        }
+
+        // Load Transactions
+        let transactionFilter = 'all';
+
+        function loadTransactions() {
+            const list = document.getElementById('transactionList');
+            let filtered = APP_DATA.transactions;
+            
+            if (transactionFilter !== 'all') {
+                filtered = filtered.filter(t => t.status === transactionFilter);
+            }
+            
+            if (filtered.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="bi bi-receipt"></i>
+                        <h3>Belum ada transaksi</h3>
+                        <p>Ajukan kerja sama dengan influencer</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = filtered.map(t => {
+                const statusClass = {
+                    pending: 'status-pending',
+                    active: 'status-active',
+                    completed: 'status-completed',
+                    cancelled: 'status-cancelled'
+                }[t.status];
+                
+                const statusText = {
+                    pending: 'Menunggu',
+                    active: 'Aktif',
+                    completed: 'Selesai',
+                    cancelled: 'Dibatalkan'
+                }[t.status];
+                
+                return `
+                    <div class="transaction-card">
+                        <div class="transaction-header">
+                            <div>
+                                <div class="transaction-title">${t.influencerName}</div>
+                                <div class="transaction-date">${t.date}</div>
+                            </div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="transaction-details">
+                            ${t.details}
+                        </div>
+                        <div class="transaction-price">${t.price}</div>
+                        <div class="transaction-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="viewTransactionDetail(${t.id})">
+                                <i class="bi bi-eye"></i> Detail
+                            </button>
+                            ${t.status === 'pending' ? `
+                                <button class="btn btn-primary btn-sm" onclick="updateTransactionStatus(${t.id}, 'active')">
+                                    <i class="bi bi-check-circle"></i> Terima
+                                </button>
+                            ` : ''}
+                            ${t.status === 'active' ? `
+                                <button class="btn btn-primary btn-sm" onclick="updateTransactionStatus(${t.id}, 'completed')">
+                                    <i class="bi bi-check-circle"></i> Selesai
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Transaction Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                transactionFilter = btn.dataset.status;
+                loadTransactions();
+            });
+        });
+
+        // Update Transaction Status
+        function updateTransactionStatus(transactionId, newStatus) {
+            const transaction = APP_DATA.transactions.find(t => t.id === transactionId);
+            if (!transaction) return;
+            
+            transaction.status = newStatus;
+            saveData();
+            
+            const messages = {
+                active: 'Transaksi diaktifkan!',
+                completed: 'Transaksi selesai!',
+                cancelled: 'Transaksi dibatalkan'
+            };
+            
+            showToast(messages[newStatus], 'success');
+            loadTransactions();
+        }
+
+        // View Transaction Detail
+        function viewTransactionDetail(transactionId) {
+            const transaction = APP_DATA.transactions.find(t => t.id === transactionId);
+            if (!transaction) return;
+            
+            const modal = new bootstrap.Modal(document.getElementById('transactionDetailModal'));
+            document.getElementById('transactionDetailContent').innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${transaction.influencerImage}" alt="${transaction.influencerName}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 12px;">
+                    <h5>${transaction.influencerName}</h5>
+                    <span class="badge bg-primary">${transaction.category}</span>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Detail Campaign</label>
+                    <p style="font-size: 14px; margin: 0;">${transaction.details}</p>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Harga</label>
+                    <p style="font-size: 18px; font-weight: 700; color: var(--primary); margin: 0;">${transaction.price}</p>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Status</label>
+                    <p style="font-size: 14px; margin: 0;">
+                        <span class="status-badge ${
+                            transaction.status === 'pending' ? 'status-pending' :
+                            transaction.status === 'active' ? 'status-active' :
+                            transaction.status === 'completed' ? 'status-completed' : 'status-cancelled'
+                        }">${
+                            transaction.status === 'pending' ? 'Menunggu' :
+                            transaction.status === 'active' ? 'Aktif' :
+                            transaction.status === 'completed' ? 'Selesai' : 'Dibatalkan'
+                        }</span>
+                    </p>
+                </div>
+                <div>
+                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Tanggal</label>
+                    <p style="font-size: 14px; margin: 0;">${transaction.date}</p>
+                </div>
+            `;
+            modal.show();
+        }
+
+        // Load Profile
+        function loadProfile() {
+            if (!APP_DATA.currentUser) return;
+            
+            document.getElementById('profileName').textContent = APP_DATA.currentUser.name;
+            document.getElementById('profileEmail').textContent = APP_DATA.currentUser.email;
+            document.getElementById('profileAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(APP_DATA.currentUser.name)}&background=3B82F6&color=fff&size=200`;
+            
+            const completedTransactions = APP_DATA.transactions.filter(t => t.status === 'completed').length;
+            document.getElementById('historyCount').textContent = completedTransactions;
+        }
+
+        // Edit Profile
+        function editProfile() {
+            if (!APP_DATA.currentUser) return;
+            
+            document.getElementById('editName').value = APP_DATA.currentUser.name;
+            document.getElementById('editEmail').value = APP_DATA.currentUser.email;
+            
+            const modal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+            modal.show();
+        }
+
+        // Edit Profile Form
+        document.getElementById('editProfileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newName = document.getElementById('editName').value;
+            const newEmail = document.getElementById('editEmail').value;
+            
+            APP_DATA.currentUser.name = newName;
+            APP_DATA.currentUser.email = newEmail;
+            
+            // Update in users array
+            const user = APP_DATA.users.find(u => u.id === APP_DATA.currentUser.id);
+            if (user) {
+                user.name = newName;    
+                user.email = newEmail;
+            }
+            
+            saveData();
+            loadProfile();
+            
+            bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
+            showToast('Profil berhasil diperbarui!', 'success');
+        });
+
+        // Generate Manifest
+        const manifest = {
+            name: 'InfluFind - Platform Pencarian Influencer',
+            short_name: 'InfluFind',
+            description: 'Platform pencarian influencer untuk UMKM dan perusahaan',
+            start_url: '/',
+            display: 'standalone',
+            background_color: '#1E3A8A',
+            theme_color: '#1E3A8A',
+            icons: [
+                {
+                    src: 'https://ui-avatars.com/api/?name=IF&background=1E3A8A&color=fff&size=192',
+                    sizes: '192x192',
+                    type: 'image/png'
+                },
+                {
+                    src: 'https://ui-avatars.com/api/?name=IF&background=1E3A8A&color=fff&size=512',
+                    sizes: '512x512',
+                    type: 'image/png'
+                }
+            ]
+        };
+
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
+
+        // Initialize App
+        checkAuth();
+    </script>
+</body>
+</html>
