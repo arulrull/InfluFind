@@ -30,7 +30,7 @@
       "url": "./index.html",
       "icons": [
         {
-          "src": "icons/icon-192x192-A.png",
+          "src": "assets/logo 192.png",
           "sizes": "192x192"
         }
       ]
