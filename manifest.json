@@ -1,118 +1,54 @@
 {
-  "name": "InfluFind - Platform Pencarian Influencer",
-  "short_name": "InfluFind",
-  "description": "Platform pencarian dan manajemen kerja sama dengan influencer untuk UMKM dan perusahaan",
-  "start_url": "/index.html",
-  "scope": "/",
+  "id": "./",
+  "name": "PWA Template Responsif",
+  "short_name": "PWA Demo",
+  "description": "Aplikasi PWA responsif untuk demonstrasi template dasar Progressive Web App dengan dukungan offline dan installable.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#1E3A8A",
-  "theme_color": "#1E3A8A",
-  "lang": "id-ID",
-  "dir": "ltr",
-  "categories": ["business", "productivity", "social"],
+  "background_color": "#4F46E5",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait",
+  "lang": "id",
   "icons": [
     {
-      "src": "assets/icons/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-192.png",
+      "src": "icons/icon-192x192-A.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-512.png",
+      "src": "icons/icon-512x512-B.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ],
   "screenshots": [
     {
-      "src": "assets/screenshots/home.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "src": "icons/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
     },
     {
-      "src": "assets/screenshots/chat.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "src": "icons/screenshot2.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
     }
   ],
   "shortcuts": [
     {
-      "name": "Cari Influencer",
-      "short_name": "Cari",
-      "description": "Cari influencer yang sesuai",
-      "url": "/index.html#home",
+      "name": "Buka Beranda",
+      "short_name": "Home",
+      "url": "./index.html",
       "icons": [
         {
-          "src": "assets/icons/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Chat",
-      "short_name": "Chat",
-      "description": "Buka percakapan",
-      "url": "/index.html#chat",
-      "icons": [
-        {
-          "src": "assets/icons/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Transaksi",
-      "short_name": "Transaksi",
-      "description": "Kelola transaksi",
-      "url": "/index.html#transaction",
-      "icons": [
-        {
-          "src": "assets/icons/icon-192.png",
+          "src": "icons/icon-192x192-A.png",
           "sizes": "192x192"
         }
       ]
     }
   ],
-  "related_applications": [],
-  "prefer_related_applications": false
+  "categories": [
+    "productivity",
+    "utilities"
+  ]
 }
