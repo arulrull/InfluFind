@@ -3,1885 +3,1662 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#1E3A8A">
-    <meta name="description" content="InfluFind - Platform pencarian influencer untuk UMKM dan perusahaan">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="description" content="InfluFind - Platform pencarian influencer untuk UMKM dan Perusahaan">
     <title>InfluFind - Temukan Influencer Terbaik</title>
-    <link rel="Icon" href="assets/logo 192.png"
-    <link rel="manifest" href="manifest.json"/>
-
-    <!-- Bootstrap 5 -->
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <!-- PWA Manifest -->
-    <link rel="manifest" href="#" id="manifest-placeholder"
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    
     <style>
         :root {
-            --primary: #1E3A8A;
-            --secondary: #3B82F6;
-            --background: #F8FAFC;
-            --surface: #FFFFFF;
-            --text-primary: #0F172A;
-            --text-secondary: #64748B;
-            --success: #16A34A;
-            --warning: #F59E0B;
-            --danger: #DC2626;
-            --shadow: rgba(0, 0, 0, 0.05);
+            --primary-color: #1e3a8a;
+            --primary-dark: #1e3a8a;
+            --secondary-color: #1e3a8a;
+            --bg-light: #f8f9fa;
+            --text-dark: #1f2937;
+            --border-color: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background);
-            color: var(--text-primary);
-            padding-bottom: 70px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
             overflow-x: hidden;
         }
-        
-        .page {
-            display: none;
-            animation: fadeIn 0.2s ease-in;
+
+        /* Navbar */
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
+            padding: 1rem 0;
         }
-        
-        .page.active {
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: white !important;
+            font-weight: 600;
+        }
+
+        /* Page Container */
+        .page-container {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .page-container.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50px 50px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 800px;
+            margin: -30px auto 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            margin: 0.3rem;
+            background: white;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Influencer Card */
+        .influencer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            height: 100%;
+        }
+
+        .influencer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+        }
+
+        .influencer-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .influencer-body {
+            padding: 1.5rem;
+        }
+
+        .influencer-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .influencer-niche {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .rating {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 0.5rem;
+        }
+
+        /* Detail Page */
+        .detail-header {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .detail-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .package-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-list {
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .chat-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .chat-item:hover,
+        .chat-item.active {
+            background: var(--bg-light);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: #f9fafb;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+            margin-bottom: 0.8rem;
+            word-wrap: break-word;
+        }
+
+        .message-sent {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-received {
+            background: white;
+            color: var(--text-dark);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid var(--border-color);
+        }
+
         /* Auth Pages */
         .auth-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 2rem 0;
         }
-        
+
         .auth-card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            max-width: 400px;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
             width: 100%;
         }
-        
-        .auth-logo {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        
-        .auth-logo h1 {
-            color: var(--primary);
-            font-size: 28px;
+
+        .auth-title {
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
         }
-        
-        .auth-logo p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        .form-label {
-            font-weight: 500;
-            font-size: 14px;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-        
+
         .form-control {
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 12px 16px;
-            font-size: 14px;
-            transition: all 0.2s;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
         }
-        
+
         .form-control:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.1);
         }
-        
-        .btn-primary {
-            background: var(--primary);
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary:hover {
-            background: #1e40af;
-            transform: translateY(-1px);
-        }
-        
-        .btn-outline-primary {
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            padding: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-        
-        .btn-outline-primary:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* Main App Layout */
-        .app-header {
-            background: var(--surface);
-            padding: 16px;
-            box-shadow: 0 2px 8px var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .app-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--surface);
-            box-shadow: 0 -2px 10px var(--shadow);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            z-index: 1000;
-        }
-        
-        .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.2s;
-            position: relative;
-        }
-        
-        .nav-item i {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-        
-        .nav-item span {
-            font-size: 11px;
-            font-weight: 500;
-        }
-        
-        .nav-item.active {
-            color: var(--secondary);
-        }
-        
-        .nav-item .badge {
-            position: absolute;
-            top: 4px;
-            right: 20px;
-            background: var(--danger);
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 10px;
-        }
-        
-        /* Content Container */
-        .content {
-            padding: 16px;
-            max-width: 100%;
-        }
-        
-        /* Home Page */
-        .hero-slider {
-            margin: -16px -16px 16px -16px;
-            border-radius: 0 0 16px 16px;
-            overflow: hidden;
-        }
-        
-        .hero-slide {
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .hero-slide h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        
-        .hero-slide p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .search-bar {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 12px 16px;
-            box-shadow: 0 2px 8px var(--shadow);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .search-bar input {
-            border: none;
-            outline: none;
-            flex: 1;
-            font-size: 14px;
-        }
-        
-        .search-bar i {
-            color: var(--text-secondary);
-            font-size: 18px;
-        }
-        
-        .filter-chips {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        
-        .filter-chips::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .chip {
-            background: var(--surface);
-            border: 1px solid #E2E8F0;
-            border-radius: 20px;
-            padding: 8px 16px;
-            font-size: 13px;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .chip.active {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-        }
-        
-        /* Influencer Card */
-        .influencer-card {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 8px var(--shadow);
-            transition: all 0.2s;
-        }
-        
-        .influencer-card:active {
-            transform: scale(0.98);
-        }
-        
-        .influencer-header {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        
-        .influencer-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #E2E8F0;
-        }
-        
-        .influencer-info {
-            flex: 1;
-        }
-        
-        .influencer-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        
-        .influencer-category {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-        
-        .influencer-stats {
-            display: flex;
-            gap: 16px;
-            font-size: 12px;
-        }
-        
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-secondary);
-        }
-        
-        .stat-item i {
-            font-size: 14px;
-        }
-        
-        .influencer-meta {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .meta-badge {
-            background: #F1F5F9;
-            color: var(--text-secondary);
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 12px;
-        }
-        
-        .influencer-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-        
-        .influencer-actions {
-            display: flex;
-            gap: 8px;
-        }
-        
-        .btn-sm {
-            padding: 8px 16px;
-            font-size: 13px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-        
-        .btn-secondary {
-            background: #F1F5F9;
-            color: var(--text-primary);
-            border: none;
-        }
-        
-        .btn-secondary:hover {
-            background: #E2E8F0;
-        }
-        
-        /* Chat Page */
-        .chat-list-item {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 8px;
-            display: flex;
-            gap: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .chat-list-item:active {
-            transform: scale(0.98);
-        }
-        
-        .chat-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            position: relative;
-        }
-        
-        .chat-content {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .chat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-        
-        .chat-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        
-        .chat-time {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-        
-        .chat-preview {
-            font-size: 13px;
-            color: var(--text-secondary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        .chat-unread {
-            background: var(--secondary);
-            color: white;
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-left: auto;
-        }
-        
-        .chat-room {
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 70px);
-        }
-        
-        .chat-room-header {
-            background: var(--surface);
-            padding: 16px;
-            box-shadow: 0 2px 8px var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .chat-back {
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-primary);
-        }
-        
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-        }
-        
-        .message {
-            display: flex;
-            margin-bottom: 16px;
-        }
-        
-        .message.sent {
-            justify-content: flex-end;
-        }
-        
-        .message-bubble {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-        
-        .message.received .message-bubble {
-            background: #F1F5F9;
-            color: var(--text-primary);
-            border-bottom-left-radius: 4px;
-        }
-        
-        .message.sent .message-bubble {
-            background: var(--secondary);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-        
-        .message-time {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-            text-align: right;
-        }
-        
-        .chat-input {
-            background: var(--surface);
-            padding: 12px 16px;
-            box-shadow: 0 -2px 8px var(--shadow);
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        
-        .chat-input input {
-            flex: 1;
-            border: 1px solid #E2E8F0;
-            border-radius: 20px;
-            padding: 10px 16px;
-            font-size: 14px;
-            outline: none;
-        }
-        
-        .chat-input button {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        
-        /* Transaction Page */
-        .transaction-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            overflow-x: auto;
-        }
-        
-        .tab-btn {
-            background: var(--surface);
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-size: 13px;
-            font-weight: 500;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .transaction-card {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 8px var(--shadow);
-        }
-        
-        .transaction-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 12px;
-        }
-        
-        .transaction-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        
-        .transaction-date {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        
-        .status-pending {
-            background: #FEF3C7;
-            color: #92400E;
-        }
-        
-        .status-active {
-            background: #DBEAFE;
-            color: #1E40AF;
-        }
-        
-        .status-completed {
-            background: #D1FAE5;
-            color: #065F46;
-        }
-        
-        .status-cancelled {
-            background: #FEE2E2;
-            color: #991B1B;
-        }
-        
-        .transaction-details {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-        
-        .transaction-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-        
-        .transaction-actions {
-            display: flex;
-            gap: 8px;
-        }
-        
+
         /* Profile Page */
         .profile-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            padding: 32px 16px;
-            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            margin: -16px -16px 16px -16px;
+            padding: 3rem 0;
+            border-radius: 15px;
+            margin-bottom: 2rem;
         }
-        
-        .profile-avatar-wrapper {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            border: 4px solid white;
-            overflow: hidden;
-        }
-        
+
         .profile-avatar {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
-        .profile-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 4px;
+
+        /* Transaction */
+        .transaction-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-        
-        .profile-email {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .profile-section {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-        }
-        
-        .section-title {
-            font-size: 14px;
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            letter-spacing: 0.5px;
         }
-        
-        .profile-menu-item {
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
             display: flex;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #F1F5F9;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .profile-menu-item:last-child {
-            border-bottom: none;
-        }
-        
-        .profile-menu-item i {
-            width: 40px;
-            font-size: 20px;
-            color: var(--text-secondary);
-        }
-        
-        .profile-menu-item span {
-            flex: 1;
-            font-size: 14px;
-            color: var(--text-primary);
-        }
-        
-        .profile-menu-item .badge {
-            font-size: 12px;
-            padding: 4px 10px;
-        }
-        
-        /* Modal */
-        .modal-content {
-            border-radius: 16px;
-            border: none;
-        }
-        
-        .modal-header {
-            border-bottom: 1px solid #F1F5F9;
-            padding: 20px;
-        }
-        
-        .modal-title {
-            font-size: 18px;
+            justify-content: center;
             font-weight: 600;
         }
-        
-        .modal-body {
-            padding: 20px;
-        }
-        
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        
-        .empty-state i {
-            font-size: 64px;
-            color: var(--text-secondary);
-            opacity: 0.5;
-            margin-bottom: 16px;
-        }
-        
-        .empty-state h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-        
-        .empty-state p {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-        
-        /* Loading Skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: 8px;
-        }
-        
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
-        .skeleton-card {
-            height: 200px;
-            margin-bottom: 12px;
-        }
-        
+
         /* Toast Notification */
         .toast-container {
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
             z-index: 9999;
         }
-        
-        .toast {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-            margin-bottom: 8px;
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 576px) {
-            .content {
-                padding: 12px;
-            }
-            
-            .auth-card {
-                padding: 24px;
-            }
-        }
-        
-        /* Install Prompt */
-        .install-prompt {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 8px var(--shadow);
+
+        .custom-toast {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        
-        .install-prompt i {
-            font-size: 32px;
-            color: var(--secondary);
-        }
-        
-        .install-prompt-text {
-            flex: 1;
-        }
-        
-        .install-prompt h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .install-prompt p {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin: 0;
+            gap: 1rem;
+            animation: slideIn 0.3s ease;
         }
 
-        .logo {
-    width: 50px;
-    height: auto; 
-}
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid rgba(99, 102, 241, 0.1);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .chat-container {
+                height: 500px;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+        }
+
+        /* Utility Classes */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
     </style>
 </head>
 <body>
+
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNavbar" style="display: none;">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('home')">
+                <i class="bi bi-stars"></i> InfluFind
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('home')">
+                            <i class="bi bi-house-fill"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('search')">
+                            <i class="bi bi-search"></i> Cari Influencer
+                        </a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="#" onclick="showPage('chat')">
+                            <i class="bi bi-chat-dots-fill"></i> Chat
+                            <span class="notification-badge" id="chatBadge" style="display: none;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('transactions')">
+                            <i class="bi bi-receipt"></i> Transaksi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('profile')">
+                            <i class="bi bi-person-fill"></i> Profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <!-- Login Page -->
-    <div class="page active" id="loginPage">
+    <div id="loginPage" class="page-container active">
         <div class="auth-container">
             <div class="auth-card">
-                <div class="auth-logo">
-                    <h1><i class="bi bi-search-heart"></i> InfluFind</h1>
-                    <p>Platform Pencarian Influencer</p>
+                <div class="text-center mb-4">
+                    <h1 class="auth-title text-gradient">
+                        <i class="bi bi-stars"></i> InfluFind
+                    </h1>
+                    <p class="text-muted">Masuk ke akun Anda</p>
                 </div>
                 <form id="loginForm">
                     <div class="mb-3">
-                        <label class="form-label">Email</label>
+                        <label class="form-label fw-bold">Email</label>
                         <input type="email" class="form-control" id="loginEmail" placeholder="nama@email.com" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Minimal 6 karakter" required>
+                        <label class="form-label fw-bold">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Masukkan password" required>
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Ingat Saya</label>
+                        <label class="form-check-label" for="rememberMe">Ingat saya</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Masuk</button>
-                    <button type="button" class="btn btn-outline-primary w-100" onclick="showPage('registerPage')">
-                        Belum punya akun? Daftar
+                    <button type="submit" class="btn btn-primary-custom w-100 mb-3">
+                        <i class="bi bi-box-arrow-in-right"></i> Masuk
                     </button>
+                    <div class="text-center">
+                        <p class="mb-0">Belum punya akun? 
+                            <a href="#" onclick="showPage('register')" class="text-decoration-none fw-bold" style="color: var(--primary-color);">Daftar sekarang</a>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- Register Page -->
-    <div class="page" id="registerPage">
+    <div id="registerPage" class="page-container">
         <div class="auth-container">
             <div class="auth-card">
-                <div class="auth-logo">
-                    <h1><i class="bi bi-search-heart"></i> InfluFind</h1>
-                    <p>Daftar Akun Baru</p>
+                <div class="text-center mb-4">
+                    <h1 class="auth-title text-gradient">
+                        <i class="bi bi-stars"></i> Daftar Akun
+                    </h1>
+                    <p class="text-muted">Buat akun baru Anda</p>
                 </div>
                 <form id="registerForm">
                     <div class="mb-3">
-                        <label class="form-label">Nama Lengkap</label>
+                        <label class="form-label fw-bold">Nama Lengkap</label>
                         <input type="text" class="form-control" id="registerName" placeholder="Nama lengkap Anda" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Email</label>
+                        <label class="form-label fw-bold">Email</label>
                         <input type="email" class="form-control" id="registerEmail" placeholder="nama@email.com" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" id="registerPassword" placeholder="Minimal 6 karakter" required>
+                        <label class="form-label fw-bold">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="Minimal 6 karakter" required minlength="6">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Konfirmasi Password</label>
-                        <input type="password" class="form-control" id="registerPasswordConfirm" placeholder="Ulangi password" required>
+                        <label class="form-label fw-bold">Tipe Akun</label>
+                        <select class="form-control" id="registerRole" required>
+                            <option value="">Pilih tipe akun</option>
+                            <option value="umkm">UMKM / Perusahaan</option>
+                            <option value="influencer">Influencer</option>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Daftar</button>
-                    <button type="button" class="btn btn-outline-primary w-100" onclick="showPage('loginPage')">
-                        Sudah punya akun? Masuk
+                    <button type="submit" class="btn btn-primary-custom w-100 mb-3">
+                        <i class="bi bi-person-plus-fill"></i> Daftar
                     </button>
+                    <div class="text-center">
+                        <p class="mb-0">Sudah punya akun? 
+                            <a href="#" onclick="showPage('login')" class="text-decoration-none fw-bold" style="color: var(--primary-color);">Masuk</a>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- Home Page -->
-    <div class="page" id="homePage">
-        <div class="app-header">
-            <img src="assets/logo 192.png" class: logo>
+    <div id="homePage" class="page-container" style="padding-top: 76px;">
+        <div class="hero-section">
+            <div class="container text-center">
+                <h1 class="hero-title">Temukan Influencer Terbaik untuk Bisnis Anda</h1>
+                <p class="hero-subtitle">Platform terpercaya untuk menghubungkan UMKM dengan influencer profesional</p>
             </div>
         </div>
-        
-        <div class="hero-slider">
-            <div class="hero-slide">
-                <h2>🎯 Temukan Influencer Terbaik</h2>
-                <p>Untuk kesuksesan bisnis Anda</p>
-            </div>
-        </div>
-        
-        <div class="content">
-            <!-- Install Prompt (Hidden by default) -->
-            <div class="install-prompt" id="installPrompt" style="display: none;">
-                <i class="bi bi-download"></i>
-                <div class="install-prompt-text">
-                    <h4>Install InfluFind</h4>
-                    <p>Akses lebih cepat dari layar utama</p>
+
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box d-flex">
+                    <input type="text" class="form-control" placeholder="Cari influencer berdasarkan nama atau niche..." id="homeSearch">
+                    <button class="search-btn" onclick="searchFromHome()">
+                        <i class="bi bi-search"></i> Cari
+                    </button>
                 </div>
-                <button class="btn btn-sm btn-primary" onclick="installApp()">Install</button>
             </div>
-            
-            <div class="search-bar">
-                <i class="bi bi-search"></i>
-                <input type="text" placeholder="Cari influencer..." id="searchInput">
+
+            <div class="row mb-5">
+                <div class="col-md-4 mb-3">
+                    <div class="card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="text-primary mb-3" style="font-size: 3rem;">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <h4 class="fw-bold">50+ Influencer</h4>
+                        <p class="text-muted">Pilihan influencer dari berbagai niche</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="text-primary mb-3" style="font-size: 3rem;">
+                            <i class="bi bi-chat-heart-fill"></i>
+                        </div>
+                        <h4 class="fw-bold">Chat Realtime</h4>
+                        <p class="text-muted">Komunikasi langsung dengan influencer</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="text-primary mb-3" style="font-size: 3rem;">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4 class="fw-bold">Transaksi Aman</h4>
+                        <p class="text-muted">Sistem pembayaran terpercaya</p>
+                    </div>
+                </div>
             </div>
+
+            <h2 class="section-title text-center">Influencer Populer</h2>
+            <div class="row" id="popularInfluencers"></div>
+        </div>
+    </div>
+
+    <!-- Search Page -->
+    <div id="searchPage" class="page-container" style="padding-top: 76px;">
+        <div class="container mt-4">
+            <h2 class="section-title">Cari Influencer</h2>
             
-            <div class="filter-chips">
-                <div class="chip active" data-filter="all">Semua</div>
-                <div class="chip" data-filter="fashion">Fashion</div>
-                <div class="chip" data-filter="food">Kuliner</div>
-                <div class="chip" data-filter="tech">Teknologi</div>
-                <div class="chip" data-filter="beauty">Kecantikan</div>
-                <div class="chip" data-filter="travel">Travel</div>
-                <div class="chip" data-filter="lifestyle">Lifestyle</div>
+            <div class="search-container" style="margin-top: 0;">
+                <div class="search-box d-flex">
+                    <input type="text" class="form-control" placeholder="Cari influencer..." id="searchInput">
+                    <button class="search-btn" onclick="performSearch()">
+                        <i class="bi bi-search"></i> Cari
+                    </button>
+                </div>
             </div>
-            
-            <div id="influencerList"></div>
+
+            <div class="filter-section">
+                <h5 class="fw-bold mb-3">Filter Berdasarkan:</h5>
+                <div class="mb-3">
+                    <label class="fw-bold mb-2">Niche:</label>
+                    <div id="nicheFilters"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="fw-bold mb-2">Rating:</label>
+                    <div>
+                        <button class="filter-btn" data-rating="all" onclick="filterByRating('all')">Semua</button>
+                        <button class="filter-btn" data-rating="5" onclick="filterByRating('5')">5★</button>
+                        <button class="filter-btn" data-rating="4" onclick="filterByRating('4')">4★+</button>
+                        <button class="filter-btn" data-rating="3" onclick="filterByRating('3')">3★+</button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="fw-bold mb-2">Harga:</label>
+                    <div>
+                        <button class="filter-btn" data-price="all" onclick="filterByPrice('all')">Semua</button>
+                        <button class="filter-btn" data-price="low" onclick="filterByPrice('low')">< Rp 5jt</button>
+                        <button class="filter-btn" data-price="medium" onclick="filterByPrice('medium')">Rp 5jt - 15jt</button>
+                        <button class="filter-btn" data-price="high" onclick="filterByPrice('high')"> > Rp 15jt</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Hasil Pencarian (<span id="resultCount">0</span>)</h5>
+                <select class="form-select w-auto" id="sortBy" onchange="sortInfluencers()">
+                    <option value="name">Nama (A-Z)</option>
+                    <option value="rating">Rating Tertinggi</option>
+                    <option value="price-low">Harga Terendah</option>
+                    <option value="price-high">Harga Tertinggi</option>
+                </select>
+            </div>
+
+            <div class="row" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- Detail Page -->
+    <div id="detailPage" class="page-container" style="padding-top: 76px;">
+        <div class="container mt-4">
+            <button class="btn btn-outline-primary mb-3" onclick="goBack()">
+                <i class="bi bi-arrow-left"></i> Kembali
+            </button>
+            <div id="detailContent"></div>
         </div>
     </div>
 
     <!-- Chat Page -->
-    <div class="page" id="chatPage">
-        <div class="app-header">
-            <div class="app-logo">
-                <i class="bi bi-chat-dots"></i>
-                <span>Chat</span>
-            </div>
-        </div>
-        
-        <div class="content">
-            <div id="chatList"></div>
-        </div>
-    </div>
-
-    <!-- Chat Room -->
-    <div class="page" id="chatRoomPage">
-        <div class="chat-room">
-            <div class="chat-room-header">
-                <i class="bi bi-arrow-left chat-back" onclick="showPage('chatPage')"></i>
-                <img src="" alt="" class="chat-avatar" id="chatRoomAvatar">
-                <div class="chat-content">
-                    <div class="chat-name" id="chatRoomName"></div>
+    <div id="chatPage" class="page-container" style="padding-top: 76px;">
+        <div class="container mt-4">
+            <h2 class="section-title">Pesan</h2>
+            <div class="chat-container">
+                <div class="row g-0 h-100">
+                    <div class="col-md-4 chat-list" id="chatList">
+                        <!-- Chat list will be populated here -->
+                    </div>
+                    <div class="col-md-8 d-flex flex-column">
+                        <div id="chatHeader" class="p-3 border-bottom bg-white">
+                            <h5 class="mb-0">Pilih percakapan</h5>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="text-center text-muted mt-5">
+                                <i class="bi bi-chat-dots" style="font-size: 3rem;"></i>
+                                <p class="mt-3">Pilih percakapan untuk memulai chat</p>
+                            </div>
+                        </div>
+                        <div class="chat-input-container" id="chatInputContainer" style="display: none;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="messageInput" placeholder="Ketik pesan...">
+                                <button class="btn btn-primary-custom" onclick="sendMessage()">
+                                    <i class="bi bi-send-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="chat-messages" id="chatMessages"></div>
-            
-            <div class="chat-input">
-                <input type="text" placeholder="Ketik pesan..." id="messageInput">
-                <button onclick="sendMessage()"><i class="bi bi-send-fill"></i></button>
             </div>
         </div>
     </div>
 
     <!-- Transaction Page -->
-    <div class="page" id="transactionPage">
-        <div class="app-header">
-            <div class="app-logo">
-                <i class="bi bi-receipt"></i>
-                <span>Transaksi</span>
-            </div>
-        </div>
-        
-        <div class="content">
-            <div class="transaction-tabs">
-                <button class="tab-btn active" data-status="all">Semua</button>
-                <button class="tab-btn" data-status="pending">Menunggu</button>
-                <button class="tab-btn" data-status="active">Aktif</button>
-                <button class="tab-btn" data-status="completed">Selesai</button>
-            </div>
-            
+    <div id="transactionsPage" class="page-container" style="padding-top: 76px;">
+        <div class="container mt-4">
+            <h2 class="section-title">Riwayat Transaksi</h2>
             <div id="transactionList"></div>
         </div>
     </div>
 
     <!-- Profile Page -->
-    <div class="page" id="profilePage">
-        <div class="profile-header">
-            <div class="profile-avatar-wrapper">
-                <img src="https://ui-avatars.com/api/?name=User&background=3B82F6&color=fff&size=200" alt="Avatar" class="profile-avatar" id="profileAvatar">
+    <div id="profilePage" class="page-container" style="padding-top: 76px;">
+        <div class="container mt-4">
+            <div class="profile-header text-center">
+                <img src="https://ui-avatars.com/api/?name=User&size=120&background=fff&color=6366f1" class="profile-avatar mb-3" id="profileAvatar">
+                <h2 class="mb-1" id="profileName">Nama User</h2>
+                <p class="mb-0" id="profileEmail">email@example.com</p>
+                <span class="badge bg-light text-dark mt-2" id="profileRole">UMKM</span>
             </div>
-            <div class="profile-name" id="profileName">User</div>
-            <div class="profile-email" id="profileEmail">user@email.com</div>
-        </div>
-        
-        <div class="content">
-            <div class="profile-section">
-                <div class="section-title">Akun</div>
-                <div class="profile-menu-item" onclick="editProfile()">
-                    <i class="bi bi-person-circle"></i>
-                    <span>Edit Profil</span>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-                <div class="profile-menu-item">
-                    <i class="bi bi-building"></i>
-                    <span>Informasi Perusahaan</span>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-            </div>
-            
-            <div class="profile-section">
-                <div class="section-title">Aktivitas</div>
-                <div class="profile-menu-item">
-                    <i class="bi bi-clock-history"></i>
-                    <span>Riwayat Kerja Sama</span>
-                    <span class="badge bg-primary" id="historyCount">0</span>
-                </div>
-                <div class="profile-menu-item">
-                    <i class="bi bi-star"></i>
-                    <span>Ulasan Saya</span>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-                <div class="profile-menu-item">
-                    <i class="bi bi-heart"></i>
-                    <span>Influencer Favorit</span>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-            </div>
-            
-            <div class="profile-section">
-                <div class="section-title">Pengaturan</div>
-                <div class="profile-menu-item">
-                    <i class="bi bi-bell"></i>
-                    <span>Notifikasi</span>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-                <div class="profile-menu-item">
-                    <i class="bi bi-shield-check"></i>
-                    <span>Keamanan</span>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-                <div class="profile-menu-item">
-                    <i class="bi bi-info-circle"></i>
-                    <span>Bantuan</span>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-            </div>
-            
-            <div class="profile-section">
-                <div class="profile-menu-item" onclick="logout()" style="color: var(--danger);">
-                    <i class="bi bi-box-arrow-right" style="color: var(--danger);"></i>
-                    <span>Keluar</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active" data-page="homePage">
-            <i class="bi bi-house-door-fill"></i>
-            <span>Home</span>
-        </a>
-        <a href="#" class="nav-item" data-page="chatPage">
-            <i class="bi bi-chat-dots-fill"></i>
-            <span>Chat</span>
-            <span class="badge" id="chatBadge" style="display: none;">0</span>
-        </a>
-        <a href="#" class="nav-item" data-page="transactionPage">
-            <i class="bi bi-receipt"></i>
-            <span>Transaksi</span>
-        </a>
-        <a href="#" class="nav-item" data-page="profilePage">
-            <i class="bi bi-person-fill"></i>
-            <span>Profil</span>
-        </a>
-    </div>
-
-    <!-- Modals -->
-    <!-- Edit Profile Modal -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Profil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editProfileForm">
-                        <div class="mb-3">
-                            <label class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="editName" required>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card border-0 shadow-sm p-4">
+                        <h5 class="fw-bold mb-3">Informasi Akun</h5>
+                        <div class="mb-2">
+                            <strong>Email:</strong> <span id="profileEmailDetail"></span>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" id="editEmail" required>
+                        <div class="mb-2">
+                            <strong>Tipe Akun:</strong> <span id="profileRoleDetail"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
-                    </form>
+                        <div class="mb-2">
+                            <strong>Bergabung:</strong> <span id="profileJoinDate"></span>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card border-0 shadow-sm p-4">
+                        <h5 class="fw-bold mb-3">Statistik</h5>
+                        <div class="mb-2">
+                            <strong>Total Transaksi:</strong> <span id="totalTransactions">0</span>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Transaksi Selesai:</strong> <span id="completedTransactions">0</span>
+                        </div>
+                        <div class="mb-2">
+                            <strong>Total Chat:</strong> <span id="totalChats">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm p-4 mb-4">
+                <h5 class="fw-bold mb-3">Pengaturan</h5>
+                <button class="btn btn-outline-danger" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i> Keluar dari Akun
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Transaction Detail Modal -->
-    <div class="modal fade" id="transactionDetailModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Detail Transaksi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="transactionDetailContent">
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Register Service Worker for PWA
-        if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(() => console.log('SW registered!')) 
-                    .catch(err => console.log('SW gagal:',err));
-            }
-        
 
-        // Install Prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installPrompt').style.display = 'flex';
+    <script>
+        // Global Variables
+        let currentUser = null;
+        let currentChat = null;
+        let currentFilters = {
+            niche: 'all',
+            rating: 'all',
+            price: 'all',
+            search: ''
+        };
+
+        // Sample Influencers Data (50 influencers)
+        const influencersData = [
+            { id: 1, name: "Rina Wijaya", niche: "Fashion", rating: 5, price: 5000000, followers: "500K", image: "assets/ian1.jpeg", bio: "Fashion blogger dengan pengalaman 5 tahun. Spesialisasi fashion wanita dan lifestyle." },
+            { id: 2, name: "Budi Santoso", niche: "Teknologi", rating: 4.8, price: 8000000, followers: "750K", image: "https://i.pravatar.cc/300?img=2", bio: "Tech reviewer profesional. Review gadget dan teknologi terkini." },
+            { id: 3, name: "Sari Melati", niche: "Kuliner", rating: 4.9, price: 6000000, followers: "600K", image: "https://i.pravatar.cc/300?img=3", bio: "Food vlogger yang mencintai kuliner nusantara dan internasional." },
+            { id: 4, name: "Dimas Prasetyo", niche: "Gaming", rating: 4.7, price: 10000000, followers: "1M", image: "https://i.pravatar.cc/300?img=4", bio: "Pro gamer dan streamer. Spesialisasi Mobile Legends dan PUBG." },
+            { id: 5, name: "Maya Putri", niche: "Beauty", rating: 5, price: 7000000, followers: "850K", image: "https://i.pravatar.cc/300?img=5", bio: "Makeup artist dan beauty enthusiast. Tutorial makeup untuk pemula hingga profesional." },
+            { id: 6, name: "Arif Maulana", niche: "Travel", rating: 4.6, price: 9000000, followers: "900K", image: "https://i.pravatar.cc/300?img=6", bio: "Travel blogger keliling Indonesia. Berbagi tips traveling hemat." },
+            { id: 7, name: "Dewi Lestari", niche: "Parenting", rating: 4.8, price: 5500000, followers: "550K", image: "https://i.pravatar.cc/300?img=7", bio: "Parenting blogger dan ibu dari 3 anak. Tips parenting modern." },
+            { id: 8, name: "Fahmi Rizki", niche: "Fitness", rating: 4.9, price: 12000000, followers: "1.2M", image: "https://i.pravatar.cc/300?img=8", bio: "Personal trainer dan fitness influencer. Program workout efektif." },
+            { id: 9, name: "Linda Hartono", niche: "Fashion", rating: 4.5, price: 6500000, followers: "650K", image: "https://i.pravatar.cc/300?img=9", bio: "Fashion stylist profesional. Konsultasi gaya berbusana." },
+            { id: 10, name: "Reza Aditya", niche: "Teknologi", rating: 4.7, price: 8500000, followers: "800K", image: "https://i.pravatar.cc/300?img=10", bio: "Software engineer dan tech educator. Tutorial programming." },
+            { id: 11, name: "Wulan Sari", niche: "Kuliner", rating: 4.6, price: 5800000, followers: "580K", image: "https://i.pravatar.cc/300?img=11", bio: "Chef profesional dan food content creator. Resep masakan rumahan." },
+            { id: 12, name: "Bagas Firmansyah", niche: "Gaming", rating: 4.8, price: 11000000, followers: "1.1M", image: "https://i.pravatar.cc/300?img=12", bio: "Esports player dan gaming analyst. Tips jadi pro player." },
+            { id: 13, name: "Citra Dewi", niche: "Beauty", rating: 4.9, price: 7500000, followers: "820K", image: "https://i.pravatar.cc/300?img=13", bio: "Beauty vlogger dan skincare specialist. Review produk kecantikan." },
+            { id: 14, name: "Yoga Pratama", niche: "Travel", rating: 4.5, price: 9500000, followers: "920K", image: "https://i.pravatar.cc/300?img=14", bio: "Adventure traveler. Eksplorasi tempat tersembunyi di Indonesia." },
+            { id: 15, name: "Nina Kusuma", niche: "Parenting", rating: 4.7, price: 6000000, followers: "600K", image: "https://i.pravatar.cc/300?img=15", bio: "Psikolog anak dan parenting expert. Konsultasi tumbuh kembang anak." },
+            { id: 16, name: "Hendra Gunawan", niche: "Fitness", rating: 4.8, price: 13000000, followers: "1.3M", image: "https://i.pravatar.cc/300?img=16", bio: "Bodybuilder dan nutrition coach. Program diet dan latihan." },
+            { id: 17, name: "Putri Amelia", niche: "Fashion", rating: 5, price: 10500000, followers: "1.05M", image: "https://i.pravatar.cc/300?img=17", bio: "Fashion designer dan style influencer. Trend fashion terkini." },
+            { id: 18, name: "Andi Wijaya", niche: "Teknologi", rating: 4.6, price: 7800000, followers: "780K", image: "https://i.pravatar.cc/300?img=18", bio: "IT consultant dan cyber security expert. Edukasi keamanan digital." },
+            { id: 19, name: "Ratna Sari", niche: "Kuliner", rating: 4.8, price: 6200000, followers: "620K", image: "https://i.pravatar.cc/300?img=19", bio: "Pastry chef dan dessert lover. Tutorial membuat kue dan dessert." },
+            { id: 20, name: "Fikri Hakim", niche: "Gaming", rating: 4.7, price: 10500000, followers: "1.05M", image: "https://i.pravatar.cc/300?img=20", bio: "Content creator gaming multi-platform. Gameplay dan tips tricks." },
+            { id: 21, name: "Anisa Rahman", niche: "Beauty", rating: 4.9, price: 8000000, followers: "900K", image: "https://i.pravatar.cc/300?img=21", bio: "Professional makeup artist. Bridal makeup specialist." },
+            { id: 22, name: "Irfan Hakim", niche: "Travel", rating: 4.6, price: 8800000, followers: "880K", image: "https://i.pravatar.cc/300?img=22", bio: "Wildlife photographer dan nature lover. Dokumentasi alam Indonesia." },
+            { id: 23, name: "Siska Melani", niche: "Parenting", rating: 4.8, price: 6500000, followers: "650K", image: "https://i.pravatar.cc/300?img=23", bio: "Montessori educator dan homeschooling advocate." },
+            { id: 24, name: "Randy Saputra", niche: "Fitness", rating: 4.7, price: 11500000, followers: "1.15M", image: "https://i.pravatar.cc/300?img=24", bio: "Calisthenics athlete. Latihan tanpa alat untuk pemula." },
+            { id: 25, name: "Vina Anjani", niche: "Fashion", rating: 4.8, price: 7200000, followers: "720K", image: "https://i.pravatar.cc/300?img=25", bio: "Hijab fashion influencer. Style hijab modern dan casual." },
+            { id: 26, name: "Galih Pratama", niche: "Teknologi", rating: 4.9, price: 9200000, followers: "920K", image: "https://i.pravatar.cc/300?img=26", bio: "AI researcher dan machine learning engineer. Edukasi AI." },
+            { id: 27, name: "Mega Pratiwi", niche: "Kuliner", rating: 4.7, price: 5600000, followers: "560K", image: "https://i.pravatar.cc/300?img=27", bio: "Healthy food blogger. Resep makanan sehat dan bergizi." },
+            { id: 28, name: "Rizal Ramadhan", niche: "Gaming", rating: 4.6, price: 9800000, followers: "980K", image: "https://i.pravatar.cc/300?img=28", bio: "FPS game specialist. Tutorial aim dan strategy." },
+            { id: 29, name: "Kartika Sari", niche: "Beauty", rating: 5, price: 8500000, followers: "950K", image: "https://i.pravatar.cc/300?img=29", bio: "Dermatologist dan skincare expert. Konsultasi kulit berjerawat." },
+            { id: 30, name: "Ahmad Fauzi", niche: "Travel", rating: 4.7, price: 10000000, followers: "1M", image: "https://i.pravatar.cc/300?img=30", bio: "Backpacker profesional. Tips traveling murah keliling Asia." },
+            { id: 31, name: "Diana Puspita", niche: "Parenting", rating: 4.6, price: 5900000, followers: "590K", image: "https://i.pravatar.cc/300?img=31", bio: "Pediatric nurse dan baby care specialist." },
+            { id: 32, name: "Yogi Setiawan", niche: "Fitness", rating: 4.8, price: 12500000, followers: "1.25M", image: "https://i.pravatar.cc/300?img=32", bio: "Yoga instructor dan meditation coach. Program wellness holistic." },
+            { id: 33, name: "Lala Kusuma", niche: "Fashion", rating: 4.9, price: 8800000, followers: "880K", image: "https://i.pravatar.cc/300?img=33", bio: "Plus size fashion influencer. Body positivity advocate." },
+            { id: 34, name: "Fajar Nugroho", niche: "Teknologi", rating: 4.5, price: 7500000, followers: "750K", image: "https://i.pravatar.cc/300?img=34", bio: "Web developer dan UI/UX designer. Tutorial desain web." },
+            { id: 35, name: "Tari Wulandari", niche: "Kuliner", rating: 4.8, price: 6800000, followers: "680K", image: "https://i.pravatar.cc/300?img=35", bio: "Cake decorator profesional. Custom cake untuk berbagai acara." },
+            { id: 36, name: "Kevin Pangestu", niche: "Gaming", rating: 4.7, price: 11500000, followers: "1.15M", image: "https://i.pravatar.cc/300?img=36", bio: "MOBA game coach. Private coaching untuk naik rank." },
+            { id: 37, name: "Zahra Amalia", niche: "Beauty", rating: 4.6, price: 7800000, followers: "780K", image: "https://i.pravatar.cc/300?img=37", bio: "Nail art specialist dan beauty entrepreneur." },
+            { id: 38, name: "Rifki Ananda", niche: "Travel", rating: 4.8, price: 9200000, followers: "920K", image: "https://i.pravatar.cc/300?img=38", bio: "Diving instructor dan underwater photographer." },
+            { id: 39, name: "Mariana Putri", niche: "Parenting", rating: 4.7, price: 6200000, followers: "620K", image: "https://i.pravatar.cc/300?img=39", bio: "Speech therapist anak. Terapi wicara untuk anak." },
+            { id: 40, name: "Eko Prasetyo", niche: "Fitness", rating: 4.9, price: 13500000, followers: "1.35M", image: "https://i.pravatar.cc/300?img=40", bio: "CrossFit athlete dan strength coach. HIIT workout." },
+            { id: 41, name: "Fika Ramadhani", niche: "Fashion", rating: 4.7, price: 7600000, followers: "760K", image: "https://i.pravatar.cc/300?img=41", bio: "Sustainable fashion advocate. Thrift shopping dan upcycling." },
+            { id: 42, name: "Doni Saputra", niche: "Teknologi", rating: 4.8, price: 8200000, followers: "820K", image: "https://i.pravatar.cc/300?img=42", bio: "Blockchain developer dan crypto educator." },
+            { id: 43, name: "Elisa Wijaya", niche: "Kuliner", rating: 4.6, price: 5500000, followers: "550K", image: "https://i.pravatar.cc/300?img=43", bio: "Vegan food blogger. Resep makanan nabati enak." },
+            { id: 44, name: "Hadi Kusuma", niche: "Gaming", rating: 4.8, price: 10800000, followers: "1.08M", image: "https://i.pravatar.cc/300?img=44", bio: "Racing game specialist. Tutorial drifting dan tuning." },
+            { id: 45, name: "Nadia Permata", niche: "Beauty", rating: 4.9, price: 9000000, followers: "1M", image: "https://i.pravatar.cc/300?img=45", bio: "Celebrity makeup artist. Glam makeup untuk acara special." },
+            { id: 46, name: "Indra Gunawan", niche: "Travel", rating: 4.5, price: 8600000, followers: "860K", image: "https://i.pravatar.cc/300?img=46", bio: "Mountain climber dan hiking guide. Ekspedisi gunung Indonesia." },
+            { id: 47, name: "Rini Anggraini", niche: "Parenting", rating: 4.8, price: 6800000, followers: "680K", image: "https://i.pravatar.cc/300?img=47", bio: "Lactation consultant. Tips menyusui untuk ibu baru." },
+            { id: 48, name: "Bima Sakti", niche: "Fitness", rating: 4.7, price: 12800000, followers: "1.28M", image: "https://i.pravatar.cc/300?img=48", bio: "Martial arts instructor. Self defense untuk wanita." },
+            { id: 49, name: "Clara Natasya", niche: "Fashion", rating: 5, price: 11000000, followers: "1.1M", image: "https://i.pravatar.cc/300?img=49", bio: "Luxury fashion influencer. High-end fashion dan accessories." },
+            { id: 50, name: "Wahyu Hidayat", niche: "Teknologi", rating: 4.6, price: 7900000, followers: "790K", image: "https://i.pravatar.cc/300?img=50", bio: "Mobile app developer. Tutorial membuat aplikasi Android/iOS." }
+        ];
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            initializeServiceWorker();
+            createManifest();
+            setupEventListeners();
         });
 
-        function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        document.getElementById('installPrompt').style.display = 'none';
-                    }
-                    deferredPrompt = null;
+        // Service Worker
+        function initializeServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+                    self.addEventListener('install', (e) => {
+                        e.waitUntil(
+                            caches.open('influfind-v1').then((cache) => {
+                                return cache.addAll([
+                                    '/',
+                                    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+                                    'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css'
+                                ]);
+                            })
+                        );
+                    });
+
+                    self.addEventListener('fetch', (e) => {
+                        e.respondWith(
+                            caches.match(e.request).then((response) => {
+                                return response || fetch(e.request);
+                            })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl).then(() => {
+                    console.log('Service Worker registered');
+                }).catch((error) => {
+                    console.log('Service Worker registration failed:', error);
                 });
             }
         }
 
-        // Data Storage
-        const APP_DATA = {
-            users: JSON.parse(localStorage.getItem('influfind_users')) || [],
-            currentUser: JSON.parse(localStorage.getItem('influfind_session')) || null,
-            chats: JSON.parse(localStorage.getItem('influfind_chats')) || [],
-            transactions: JSON.parse(localStorage.getItem('influfind_transactions')) || []
-        };
-
-        // Dummy Influencer Data (50 influencers)
-        const INFLUENCERS = [
-            { id: 1, name: 'Anya', category: 'Fashion', platform: 'Instagram', followers: '400K', price: 'Rp 5.000.000', location: 'Jakarta', image: 'assets/ian1.jpeg' },
-            { id: 2, name: 'Holy', category: 'Kuliner', platform: 'TikTok', followers: '290K', price: 'Rp 3.500.000', location: 'Bandung', image: 'assets/ian2.jpeg' },
-            { id: 3, name: 'Zaskia', category: 'Kecantikan', platform: 'YouTube', followers: '320K', price: 'Rp 7.000.000', location: 'Surabaya', image: 'assets/ian3.jpeg' },
-            { id: 4, name: 'Zefanya', category: 'Teknologi', platform: 'Instagram', followers: '150K', price: 'Rp 4.000.000', location: 'Jakarta', image: 'assets/ian4.jpeg' },
-            { id: 5, name: 'Izabelle', category: 'Travel', platform: 'YouTube', followers: '280K', price: 'Rp 6.000.000', location: 'Bali', image: 'assets/ian5.jpeg' },
-            { id: 6, name: 'Jesslyn', category: 'Lifestyle', platform: 'TikTok', followers: '220K', price: 'Rp 4.500.000', location: 'Yogyakarta', image: 'assets/ian6.jpeg' },
-            { id: 7, name: 'Kattie', category: 'Fashion', platform: 'Instagram', followers: '300K', price: 'Rp 6.500.000', location: 'Jakarta', image: 'assets/ian7.jpeg' },
-            { id: 8, name: 'Melisa', category: 'Kuliner', platform: 'YouTube', followers: '200K', price: 'Rp 4.000.000', location: 'Semarang', image: 'assets/ian8.jpeg' },
-            { id: 9, name: 'Angel', category: 'Kecantikan', platform: 'TikTok', followers: '270K', price: 'Rp 5.500.000', location: 'Medan', image: 'assets/ian9.jpeg' },
-            { id: 10, name: 'Sherly', category: 'Teknologi', platform: 'YouTube', followers: '190K', price: 'Rp 4.200.000', location: 'Jakarta', image: 'assets/ian10.jpeg' },
-            { id: 11, name: 'Carine', category: 'Travel', platform: 'Instagram', followers: '250K', price: 'Rp 5.200.000', location: 'Bali', image: 'assets/adam 1.jpeg' },
-            { id: 12, name: 'Shafa', category: 'Lifestyle', platform: 'TikTok', followers: '230K', price: 'Rp 4.300.000', location: 'Surabaya', image: 'assets/adam2.jpeg' },
-            { id: 13, name: 'Agil', category: 'Fashion', platform: 'YouTube', followers: '265K', price: 'Rp 5.800.000', location: 'Bandung', image: 'assets/adam3.jpeg' },
-            { id: 14, name: 'Helsa', category: 'Kuliner', platform: 'Instagram', followers: '185K', price: 'Rp 3.800.000', location: 'Jakarta', image: 'assets/adam4.jpeg' },
-            { id: 15, name: 'Puan', category: 'Kecantikan', platform: 'Instagram', followers: '300K', price: 'Rp 6.200.000', location: 'Surabaya', image: 'assets/adam6.jpeg' },
-            { id: 16, name: 'Dava', category: 'Teknologi', platform: 'TikTok', followers: '175K', price: 'Rp 3.900.000', location: 'Bandung', image: 'assets/adam5.jpeg' },
-            { id: 17, name: 'Marvin', category: 'Travel', platform: 'YouTube', followers: '260K', price: 'Rp 5.500.000', location: 'Lombok', image: 'assets/adam7.jpeg' },
-            { id: 18, name: 'Farah', category: 'Lifestyle', platform: 'Instagram', followers: '250K', price: 'Rp 4.700.000', location: 'Jakarta', image: 'assets/adam8.jpeg' },
-            { id: 19, name: 'Galang', category: 'Fashion', platform: 'TikTok', followers: '290', price: 'Rp 6.000.000', location: 'Jakarta', image: 'assets/adam9.jpeg' },
-            { id: 20, name: 'Keisha', category: 'Kuliner', platform: 'YouTube', followers: '200K', price: 'Rp 4.100.000', location: 'Yogyakarta', image: 'assets/adam10.jpeg' },
-            { id: 21, name: 'Garasi Kent', category: 'Otomotif', platform: 'TikTok', followers: '265K', price: 'Rp 5.700.000', location: 'Bali', image: 'assets/foto athala.jpg' },
-            { id: 22, name: 'Fashion by AWW', category: 'Fashion', platform: 'Tiktok', followers: '175K', price: 'Rp 4.000.000', location: 'Surakarta', image: 'assets/foto awa.jpg' },
-            { id: 23, name: 'Sehat With Bagas', category: 'Sport', platform: 'Instagram', followers: '255K', price: 'Rp 5.600.000', location: 'Jakarta', image: 'assets/foto bagas.jpg' },
-            { id: 24, name: 'Diary Mosha', category: 'Lifestyle', platform: 'Tiktok', followers: '215K', price: 'Rp 4.400.000', location: 'Jakarta', image: 'assets/foto mosha.jpg' },
-            { id: 25, name: 'Citra Fashion Blogger', category: 'Fashion', platform: 'Instagram', followers: '270K', price: 'Rp 5.900.000', location: 'Bandung', image: 'assets/foto nisrina.jpg' },
-            { id: 26, name: 'GRW Rev', category: 'Beauty', platform: 'TikTok', followers: '185K', price: 'Rp 3.900.000', location: 'Malang', image: 'assets/foto revina.jpg' },
-            { id: 27, name: 'Beauty Tips', category: 'Kecantikan', platform: 'Instagram', followers: '285K', price: 'Rp 6.100.000', location: 'Jakarta', image: 'assets/foto selpina.jpg' },
-            { id: 28, name: 'Tech Insights', category: 'Teknologi', platform: 'Instagram', followers: '165K', price: 'Rp 3.950.000', location: 'Bandung', image: 'assets/foto sickah.jpg' },
-            { id: 29, name: 'Travel Diary Yasshmin', category: 'Travel', platform: 'TikTok', followers: '245K', price: 'Rp 5.300.000', location: 'Lombok', image: 'assets/foto yasmin.jpg' },
-            { id: 30, name: 'Putri Life Hacks', category: 'Lifestyle', platform: 'Instagram', followers: '225K', price: 'Rp 4.600.000', location: 'Surabaya', image: 'assets/toto putri.jpg' },
-            { id: 31, name: 'Yuni Style Guru', category: 'Fashion', platform: 'YouTube', followers: '295K', price: 'Rp 6.300.000', location: 'Jakarta', image: 'assets/1.jpeg' },
-            { id: 32, name: 'Teguh Food Vlog', category: 'Kuliner', platform: 'Instagram', followers: '190K', price: 'Rp 4.050.000', location: 'Semarang', image: 'assets/2.jpeg' },
-            { id: 33, name: 'Intan Beauty Secret', category: 'Kecantikan', platform: 'TikTok', followers: '275K', price: 'Rp 5.850.000', location: 'Medan', image: 'assets/3.jpeg' },
-            { id: 34, name: 'Bayu Digital Life', category: 'Teknologi', platform: 'YouTube', followers: '180K', price: 'Rp 4.100.000', location: 'Jakarta', image: 'assets/4.jpeg' },
-            { id: 35, name: 'Lia Adventure Time', category: 'Travel', platform: 'Instagram', followers: '260K', price: 'Rp 5.700.000', location: 'Bali', image: 'assets/5.jpeg' },
-            { id: 36, name: 'Reza Modern Way', category: 'Lifestyle', platform: 'TikTok', followers: '220K', price: 'Rp 4.500.000', location: 'Bandung', image: 'assets/6.jpeg' },
-            { id: 37, name: 'Fitri Chic Style', category: 'Fashion', platform: 'Instagram', followers: '265K', price: 'Rp 5.750.000', location: 'Jakarta', image: 'assets/7.jpeg' },
-            { id: 38, name: 'Alif Gastronomy', category: 'Kuliner', platform: 'YouTube', followers: '200K', price: 'Rp 4.200.000', location: 'Yogyakarta', image: 'assets/8.jpeg' },
-            { id: 39, name: 'Novia Skin Care', category: 'Kecantikan', platform: 'Instagram', followers: '280K', price: 'Rp 6.000.000', location: 'Surabaya', image: 'assets/9.jpeg' },
-            { id: 40, name: 'Rizki Tech Talk', category: 'Teknologi', platform: 'TikTok', followers: '170K', price: 'Rp 4.000.000', location: 'Bandung', image: 'assets/10.jpeg' },
-            { id: 41, name: 'Kirana Journey', category: 'Travel', platform: 'YouTube', followers: '250K', price: 'Rp 5.400.000', location: 'Bali', image: 'assets/f1.jpeg' },
-            { id: 42, name: 'Fajar Daily Tips', category: 'Lifestyle', platform: 'Instagram', followers: '235K', price: 'Rp 4.750.000', location: 'Jakarta', image: 'assets/f2.jpeg' },
-            { id: 43, name: 'Diana Fashion Week', category: 'Fashion', platform: 'TikTok', followers: '290K', price: 'Rp 6.000.000', location: 'Bandung', image: 'assets/f3.jpeg' },
-            { id: 44, name: 'Surya Eat Well', category: 'Kuliner', platform: 'Instagram', followers: '195K', price: 'Rp 4.150.000', location: 'Yogyakarta', image: 'assets/f4.jpeg' },
-            { id: 45, name: 'Kartika Beauty World', category: 'Kecantikan', platform: 'YouTube', followers: '285K', price: 'Rp 6.150.000', location: 'Batam', image: 'assets/f5.jpeg' },
-            { id: 46, name: 'Galih Tech Zone', category: 'Teknologi', platform: 'Instagram', followers: '175K', price: 'Rp 4.050.000', location: 'Surabaya', image: 'assets/f6.jpeg' },
-            { id: 47, name: 'Anggun Travel More', category: 'Travel', platform: 'TikTok', followers: '255K', price: 'Rp 5.600.000', location: 'Lombok', image: 'assets/f7.jpeg' },
-            { id: 48, name: 'Hafiz Smart Living', category: 'Lifestyle', platform: 'YouTube', followers: '225K', price: 'Rp 4.700.000', location: 'Surabaya', image: 'assets/f8.jpeg' },
-            { id: 49, name: 'Melinda Fashionista', category: 'Fashion', platform: 'Instagram', followers: '275K', price: 'Rp 5.900.000', location: 'Jakarta', image: 'assets/f9.jpeg' },
-            { id: 50, name: 'Zaki Food Journey', category: 'Kuliner', platform: 'TikTok', followers: '205K', price: 'Rp 4.350.000', location: 'Bali', image: 'assets/f10.jpeg' }
-        ];
-
-        // Save data to localStorage
-        function saveData() {
-            localStorage.setItem('influfind_users', JSON.stringify(APP_DATA.users));
-            localStorage.setItem('influfind_session', JSON.stringify(APP_DATA.currentUser));
-            localStorage.setItem('influfind_chats', JSON.stringify(APP_DATA.chats));
-            localStorage.setItem('influfind_transactions', JSON.stringify(APP_DATA.transactions));
-        }
-
-        // Toast Notification
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <i class="bi bi-${type === 'success' ? 'check-circle-fill' : type === 'error' ? 'x-circle-fill' : 'info-circle-fill'}" style="font-size: 24px; color: var(--${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'secondary'});"></i>
-                    <span style="flex: 1;">${message}</span>
-                </div>
-            `;
-            document.getElementById('toastContainer').appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // Page Navigation
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-            
-            // Update bottom nav
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.dataset.page === pageId) {
-                    item.classList.add('active');
-                }
-            });
-            
-            // Load page content
-            if (pageId === 'homePage') loadInfluencers();
-            if (pageId === 'chatPage') loadChats();
-            if (pageId === 'transactionPage') loadTransactions();
-            if (pageId === 'profilePage') loadProfile();
-        }
-
-        // Bottom Navigation
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                const page = item.dataset.page;
-                if (page) showPage(page);
-            });
-        });
-
-        // Register Form
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('registerName').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerPasswordConfirm').value;
-            
-            // Validation
-            if (password.length < 6) {
-                showToast('Password minimal 6 karakter', 'error');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showToast('Password tidak cocok', 'error');
-                return;
-            }
-            
-            // Check if email exists
-            if (APP_DATA.users.find(u => u.email === email)) {
-                showToast('Email sudah terdaftar', 'error');
-                return;
-            }
-            
-            // Create user
-            const user = {
-                id: Date.now(),
-                name,
-                email,
-                password: btoa(password), // Simple encoding
-                createdAt: new Date().toISOString()
+        // Create Manifest
+        function createManifest() {
+            const manifest = {
+                name: "InfluFind - Platform Pencarian Influencer",
+                short_name: "InfluFind",
+                description: "Platform untuk menghubungkan UMKM dengan influencer profesional",
+                start_url: "/",
+                display: "standalone",
+                background_color: "#6366f1",
+                theme_color: "#6366f1",
+                icons: [
+                    {
+                        src: "https://ui-avatars.com/api/?name=IF&size=192&background=6366f1&color=fff",
+                        sizes: "192x192",
+                        type: "image/png"
+                    },
+                    {
+                        src: "https://ui-avatars.com/api/?name=IF&size=512&background=6366f1&color=fff",
+                        sizes: "512x512",
+                        type: "image/png"
+                    }
+                ]
             };
-            
-            APP_DATA.users.push(user);
-            saveData();
-            
-            showToast('Registrasi berhasil! Silakan login', 'success');
-            showPage('loginPage');
-        });
 
-        // Login Form
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+            const manifestURL = URL.createObjectURL(manifestBlob);
+            document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('registerForm').addEventListener('submit', handleRegister);
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
+
+        // Authentication Functions
+        function checkAuth() {
+            const user = localStorage.getItem('currentUser');
+            if (user) {
+                currentUser = JSON.parse(user);
+                showMainApp();
+            } else {
+                showPage('login');
+            }
+        }
+
+        function handleLogin(e) {
             e.preventDefault();
-            
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             const rememberMe = document.getElementById('rememberMe').checked;
-            
-            const user = APP_DATA.users.find(u => 
-                u.email === email && u.password === btoa(password)
-            );
-            
-            if (!user) {
-                showToast('Email atau password salah', 'error');
-                return;
-            }
-            
-            // Create session
-            APP_DATA.currentUser = {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                rememberMe
-            };
-            
-            saveData();
-            showToast('Login berhasil!', 'success');
-            showPage('homePage');
-        });
 
-        // Check Auth
-        function checkAuth() {
-            if (APP_DATA.currentUser) {
-                showPage('homePage');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === btoa(password));
+
+            if (user) {
+                currentUser = user;
+                if (rememberMe) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                } else {
+                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                }
+                showToast('Login berhasil!', 'success');
+                showMainApp();
             } else {
-                showPage('loginPage');
+                showToast('Email atau password salah!', 'error');
             }
         }
 
-        // Logout
-        function logout() {
-            if (confirm('Yakin ingin keluar?')) {
-                APP_DATA.currentUser = null;
-                localStorage.removeItem('influfind_session');
-                showToast('Anda telah keluar', 'info');
-                showPage('loginPage');
-            }
-        }
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const role = document.getElementById('registerRole').value;
 
-        // Load Influencers
-        let currentFilter = 'all';
-        let searchQuery = '';
-
-        function loadInfluencers() {
-            const list = document.getElementById('influencerList');
-            let filtered = INFLUENCERS;
-            
-            // Apply filter
-            if (currentFilter !== 'all') {
-                filtered = filtered.filter(inf => 
-                    inf.category.toLowerCase() === currentFilter.toLowerCase()
-                );
-            }
-            
-            // Apply search
-            if (searchQuery) {
-                filtered = filtered.filter(inf =>
-                    inf.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    inf.category.toLowerCase().includes(searchQuery.toLowerCase())
-                );
-            }
-            
-            if (filtered.length === 0) {
-                list.innerHTML = `
-                    <div class="empty-state">
-                        <i class="bi bi-search"></i>
-                        <h3>Tidak ada hasil</h3>
-                        <p>Coba kata kunci lain</p>
-                    </div>
-                `;
+            if (password.length < 6) {
+                showToast('Password minimal 6 karakter!', 'error');
                 return;
             }
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
             
-            list.innerHTML = filtered.map(inf => `
-                <div class="influencer-card">
-                    <div class="influencer-header">
-                        <img src="${inf.image}" alt="${inf.name}" class="influencer-avatar">
-                        <div class="influencer-info">
-                            <div class="influencer-name">${inf.name}</div>
-                            <div class="influencer-category">${inf.category} • ${inf.platform}</div>
-                            <div class="influencer-stats">
-                                <div class="stat-item">
-                                    <i class="bi bi-people-fill"></i>
-                                    <span>${inf.followers}</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    <span>${inf.location}</span>
-                                </div>
+            if (users.find(u => u.email === email)) {
+                showToast('Email sudah terdaftar!', 'error');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                password: btoa(password),
+                role,
+                joinDate: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            showToast('Registrasi berhasil! Silakan login.', 'success');
+            showPage('login');
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
+            showToast('Logout berhasil!', 'success');
+            showPage('login');
+        }
+
+        function showMainApp() {
+            document.getElementById('mainNavbar').style.display = 'block';
+            showPage('home');
+            loadPopularInfluencers();
+            loadNicheFilters();
+            loadAllInfluencers();
+            loadChats();
+            loadTransactions();
+            loadProfile();
+        }
+
+        // Page Navigation
+        function showPage(pageName) {
+            const pages = document.querySelectorAll('.page-container');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            const targetPage = document.getElementById(pageName + 'Page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+        }
+
+        // Load Popular Influencers
+        function loadPopularInfluencers() {
+            const container = document.getElementById('popularInfluencers');
+            const popular = influencersData.filter(inf => inf.rating >= 4.8).slice(0, 6);
+            
+            container.innerHTML = popular.map(inf => createInfluencerCard(inf)).join('');
+        }
+
+        // Create Influencer Card
+        function createInfluencerCard(influencer) {
+            return `
+                <div class="col-md-4 col-lg-4 mb-4">
+                    <div class="influencer-card" onclick="showInfluencerDetail(${influencer.id})">
+                        <img src="${influencer.image}" alt="${influencer.name}" class="influencer-img">
+                        <div class="influencer-body">
+                            <h5 class="influencer-name">${influencer.name}</h5>
+                            <span class="influencer-niche">${influencer.niche}</span>
+                            <div class="rating">
+                                ${'★'.repeat(Math.floor(influencer.rating))}${'☆'.repeat(5 - Math.floor(influencer.rating))}
+                                <span class="text-muted">${influencer.rating}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><i class="bi bi-people-fill"></i> ${influencer.followers}</span>
+                                <span class="price">Rp ${(influencer.price / 1000000).toFixed(1)}jt</span>
                             </div>
                         </div>
                     </div>
-                    <div class="influencer-price">${inf.price}</div>
-                    <div class="influencer-actions">
-                        <button class="btn btn-secondary btn-sm flex-fill" onclick="startChat(${inf.id})">
-                            <i class="bi bi-chat-dots"></i> Chat
-                        </button>
-                        <button class="btn btn-primary btn-sm flex-fill" onclick="createTransaction(${inf.id})">
-                            <i class="bi bi-briefcase"></i> Ajukan
-                        </button>
-                    </div>
                 </div>
-            `).join('');
+            `;
         }
 
-        // Search
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            searchQuery = e.target.value;
-            loadInfluencers();
-        });
+        // Search Functions
+        function searchFromHome() {
+            const query = document.getElementById('homeSearch').value;
+            currentFilters.search = query;
+            showPage('search');
+            document.getElementById('searchInput').value = query;
+            performSearch();
+        }
 
-        // Filter Chips
-        document.querySelectorAll('.chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                currentFilter = chip.dataset.filter;
-                loadInfluencers();
+        function loadNicheFilters() {
+            const niches = [...new Set(influencersData.map(inf => inf.niche))];
+            const container = document.getElementById('nicheFilters');
+            
+            let html = '<button class="filter-btn active" data-niche="all" onclick="filterByNiche(\'all\')">Semua</button>';
+            niches.forEach(niche => {
+                html += `<button class="filter-btn" data-niche="${niche}" onclick="filterByNiche('${niche}')">${niche}</button>`;
             });
-        });
-
-        // Start Chat
-        function startChat(influencerId) {
-            const influencer = INFLUENCERS.find(i => i.id === influencerId);
-            if (!influencer) return;
             
-            // Check if chat exists
-            let chat = APP_DATA.chats.find(c => c.influencerId === influencerId);
-            
-            if (!chat) {
-                chat = {
-                    id: Date.now(),
-                    influencerId,
-                    influencerName: influencer.name,
-                    influencerImage: influencer.image,
-                    messages: [
-                        {
-                            id: 1,
-                            sender: 'influencer',
-                            text: `Halo! Terima kasih sudah menghubungi saya. Ada yang bisa saya bantu?`,
-                            time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-                        }
-                    ],
-                    lastMessage: `Halo! Terima kasih sudah menghubungi saya.`,
-                    lastTime: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
-                    unread: 1
-                };
-                APP_DATA.chats.push(chat);
-                saveData();
-            }
-            
-            openChatRoom(chat.id);
+            container.innerHTML = html;
         }
 
-        // Load Chats
-        function loadChats() {
-            const list = document.getElementById('chatList');
-            
-            if (APP_DATA.chats.length === 0) {
-                list.innerHTML = `
-                    <div class="empty-state">
-                        <i class="bi bi-chat-dots"></i>
-                        <h3>Belum ada chat</h3>
-                        <p>Mulai chat dengan influencer</p>
+        function loadAllInfluencers() {
+            performSearch();
+        }
+
+        function performSearch() {
+            let filtered = influencersData;
+
+            // Filter by search
+            if (currentFilters.search) {
+                const query = currentFilters.search.toLowerCase();
+                filtered = filtered.filter(inf => 
+                    inf.name.toLowerCase().includes(query) || 
+                    inf.niche.toLowerCase().includes(query)
+                );
+            }
+
+            // Filter by niche
+            if (currentFilters.niche !== 'all') {
+                filtered = filtered.filter(inf => inf.niche === currentFilters.niche);
+            }
+
+            // Filter by rating
+            if (currentFilters.rating !== 'all') {
+                const minRating = parseFloat(currentFilters.rating);
+                filtered = filtered.filter(inf => inf.rating >= minRating);
+            }
+
+            // Filter by price
+            if (currentFilters.price !== 'all') {
+                if (currentFilters.price === 'low') {
+                    filtered = filtered.filter(inf => inf.price < 5000000);
+                } else if (currentFilters.price === 'medium') {
+                    filtered = filtered.filter(inf => inf.price >= 5000000 && inf.price <= 15000000);
+                } else if (currentFilters.price === 'high') {
+                    filtered = filtered.filter(inf => inf.price > 15000000);
+                }
+            }
+
+            displaySearchResults(filtered);
+        }
+
+        function filterByNiche(niche) {
+            currentFilters.niche = niche;
+            document.querySelectorAll('[data-niche]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-niche="${niche}"]`).classList.add('active');
+            performSearch();
+        }
+
+        function filterByRating(rating) {
+            currentFilters.rating = rating;
+            document.querySelectorAll('[data-rating]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-rating="${rating}"]`).classList.add('active');
+            performSearch();
+        }
+
+        function filterByPrice(price) {
+            currentFilters.price = price;
+            document.querySelectorAll('[data-price]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-price="${price}"]`).classList.add('active');
+            performSearch();
+        }
+
+        function sortInfluencers() {
+            const sortBy = document.getElementById('sortBy').value;
+            performSearch();
+        }
+
+        function displaySearchResults(results) {
+            const container = document.getElementById('searchResults');
+            document.getElementById('resultCount').textContent = results.length;
+
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-search" style="font-size: 4rem; color: #ccc;"></i>
+                        <p class="text-muted mt-3">Tidak ada influencer yang ditemukan</p>
                     </div>
                 `;
                 return;
             }
-            
-            list.innerHTML = APP_DATA.chats.map(chat => `
-                <div class="chat-list-item" onclick="openChatRoom(${chat.id})">
-                    <img src="${chat.influencerImage}" alt="${chat.influencerName}" class="chat-avatar">
-                    <div class="chat-content">
-                        <div class="chat-header">
-                            <div class="chat-name">${chat.influencerName}</div>
-                            <div class="chat-time">${chat.lastTime}</div>
+
+            // Apply sorting
+            const sortBy = document.getElementById('sortBy').value;
+            if (sortBy === 'name') {
+                results.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === 'rating') {
+                results.sort((a, b) => b.rating - a.rating);
+            } else if (sortBy === 'price-low') {
+                results.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-high') {
+                results.sort((a, b) => b.price - a.price);
+            }
+
+            container.innerHTML = results.map(inf => createInfluencerCard(inf)).join('');
+        }
+
+        // Influencer Detail
+        function showInfluencerDetail(id) {
+            const influencer = influencersData.find(inf => inf.id === id);
+            if (!influencer) return;
+
+            const packages = [
+                { name: 'Basic', price: influencer.price, posts: 1, stories: 3, duration: '3 hari' },
+                { name: 'Standard', price: influencer.price * 1.8, posts: 3, stories: 5, duration: '7 hari' },
+                { name: 'Premium', price: influencer.price * 3, posts: 5, stories: 10, duration: '14 hari' }
+            ];
+
+            const content = `
+                <div class="detail-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <img src="${influencer.image}" alt="${influencer.name}" class="detail-img">
                         </div>
-                        <div class="chat-preview">${chat.lastMessage}</div>
+                        <div class="col-md-8">
+                            <h2 class="fw-bold mb-2">${influencer.name}</h2>
+                            <span class="influencer-niche">${influencer.niche}</span>
+                            <div class="rating my-3">
+                                ${'★'.repeat(Math.floor(influencer.rating))}${'☆'.repeat(5 - Math.floor(influencer.rating))}
+                                <span class="text-muted">${influencer.rating} (${Math.floor(Math.random() * 500) + 100} reviews)</span>
+                            </div>
+                            <p class="text-muted mb-3">${influencer.bio}</p>
+                            <div class="mb-3">
+                                <span class="me-4"><i class="bi bi-people-fill text-primary"></i> ${influencer.followers} Followers</span>
+                                <span><i class="bi bi-instagram text-primary"></i> Instagram Verified</span>
+                            </div>
+                            <button class="btn btn-primary-custom me-2" onclick="startChat(${influencer.id})">
+                                <i class="bi bi-chat-dots-fill"></i> Chat Sekarang
+                            </button>
+                        </div>
                     </div>
-                    ${chat.unread > 0 ? `<div class="chat-unread">${chat.unread}</div>` : ''}
+                </div>
+
+                <h4 class="fw-bold mb-3">Paket Layanan</h4>
+                <div class="row">
+                    ${packages.map(pkg => `
+                        <div class="col-md-4 mb-3">
+                            <div class="package-card">
+                                <h5 class="fw-bold text-primary">${pkg.name}</h5>
+                                <h3 class="price mb-3">Rp ${(pkg.price / 1000000).toFixed(1)}jt</h3>
+                                <ul class="list-unstyled mb-3">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> ${pkg.posts} Post Feed</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> ${pkg.stories} Instagram Stories</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Durasi ${pkg.duration}</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Full Rights</li>
+                                </ul>
+                                <button class="btn btn-primary-custom w-100" onclick="orderPackage(${influencer.id}, '${pkg.name}', ${pkg.price})">
+                                    Pesan Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <h4 class="fw-bold mb-3">Review & Rating</h4>
+                <div class="card border-0 shadow-sm p-4">
+                    ${[1, 2, 3].map(() => `
+                        <div class="mb-3 pb-3 border-bottom">
+                            <div class="d-flex align-items-center mb-2">
+                                <img src="https://ui-avatars.com/api/?name=User&size=40" class="rounded-circle me-2" width="40">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">User ${Math.floor(Math.random() * 1000)}</h6>
+                                    <div class="rating" style="font-size: 0.9rem;">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-0">Pelayanan sangat memuaskan! Hasil konten sesuai ekspektasi dan engagement juga meningkat.</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            document.getElementById('detailContent').innerHTML = content;
+            showPage('detail');
+        }
+
+        function goBack() {
+            showPage('search');
+        }
+
+        // Chat Functions
+        function loadChats() {
+            const chats = JSON.parse(localStorage.getItem('chats') || '[]');
+            const userChats = chats.filter(chat => 
+                chat.userId === currentUser.id || chat.influencerId === currentUser.id
+            );
+
+            const container = document.getElementById('chatList');
+            
+            if (userChats.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center p-4 text-muted">
+                        <i class="bi bi-chat-dots" style="font-size: 2rem;"></i>
+                        <p class="mt-2">Belum ada percakapan</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = userChats.map(chat => {
+                const otherUser = currentUser.role === 'umkm' 
+                    ? influencersData.find(inf => inf.id === chat.influencerId)
+                    : { name: 'User ' + chat.userId, image: 'https://ui-avatars.com/api/?name=User' };
+                
+                return `
+                    <div class="chat-item ${currentChat?.id === chat.id ? 'active' : ''}" onclick="openChat(${chat.id})">
+                        <div class="d-flex align-items-center">
+                            <img src="${otherUser?.image || 'https://ui-avatars.com/api/?name=User'}" 
+                                 class="rounded-circle me-2" width="50" height="50">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0 fw-bold">${otherUser?.name || 'Unknown'}</h6>
+                                <p class="text-muted small mb-0">${chat.messages[chat.messages.length - 1]?.text || 'Belum ada pesan'}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateChatBadge(userChats.length);
+        }
+
+        function startChat(influencerId) {
+            if (currentUser.role !== 'umkm') {
+                showToast('Hanya UMKM yang bisa memulai chat dengan influencer', 'error');
+                return;
+            }
+
+            let chats = JSON.parse(localStorage.getItem('chats') || '[]');
+            let existingChat = chats.find(c => c.userId === currentUser.id && c.influencerId === influencerId);
+
+            if (!existingChat) {
+                existingChat = {
+                    id: Date.now(),
+                    userId: currentUser.id,
+                    influencerId: influencerId,
+                    messages: [],
+                    createdAt: new Date().toISOString()
+                };
+                chats.push(existingChat);
+                localStorage.setItem('chats', JSON.stringify(chats));
+            }
+
+            showPage('chat');
+            loadChats();
+            openChat(existingChat.id);
+        }
+
+        function openChat(chatId) {
+            const chats = JSON.parse(localStorage.getItem('chats') || '[]');
+            currentChat = chats.find(c => c.id === chatId);
+
+            if (!currentChat) return;
+
+            const otherUser = currentUser.role === 'umkm'
+                ? influencersData.find(inf => inf.id === currentChat.influencerId)
+                : { name: 'User ' + currentChat.userId, image: 'https://ui-avatars.com/api/?name=User' };
+
+            document.getElementById('chatHeader').innerHTML = `
+                <div class="d-flex align-items-center">
+                    <img src="${otherUser?.image || 'https://ui-avatars.com/api/?name=User'}" 
+                         class="rounded-circle me-2" width="40" height="40">
+                    <div>
+                        <h6 class="mb-0 fw-bold">${otherUser?.name || 'Unknown'}</h6>
+                        <small class="text-success"><i class="bi bi-circle-fill" style="font-size: 0.5rem;"></i> Online</small>
+                    </div>
+                </div>
+            `;
+
+            displayMessages();
+            document.getElementById('chatInputContainer').style.display = 'block';
+            loadChats(); // Refresh chat list to show active state
+        }
+
+        function displayMessages() {
+            const container = document.getElementById('chatMessages');
+            
+            if (!currentChat || currentChat.messages.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-muted mt-5">
+                        <i class="bi bi-chat-dots" style="font-size: 3rem;"></i>
+                        <p class="mt-3">Mulai percakapan dengan mengirim pesan</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = currentChat.messages.map(msg => `
+                <div class="d-flex ${msg.senderId === currentUser.id ? 'justify-content-end' : ''}">
+                    <div class="message-bubble ${msg.senderId === currentUser.id ? 'message-sent' : 'message-received'}">
+                        ${msg.text}
+                        <div class="small mt-1" style="opacity: 0.7;">${new Date(msg.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</div>
+                    </div>
                 </div>
             `).join('');
-            
-            // Update badge
-            const totalUnread = APP_DATA.chats.reduce((sum, chat) => sum + chat.unread, 0);
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+
+            if (!text || !currentChat) return;
+
+            const message = {
+                id: Date.now(),
+                senderId: currentUser.id,
+                text: text,
+                timestamp: new Date().toISOString()
+            };
+
+            currentChat.messages.push(message);
+
+            let chats = JSON.parse(localStorage.getItem('chats') || '[]');
+            const chatIndex = chats.findIndex(c => c.id === currentChat.id);
+            chats[chatIndex] = currentChat;
+            localStorage.setItem('chats', JSON.stringify(chats));
+
+            input.value = '';
+            displayMessages();
+            loadChats();
+        }
+
+        function updateChatBadge(count) {
             const badge = document.getElementById('chatBadge');
-            if (totalUnread > 0) {
-                badge.textContent = totalUnread;
-                badge.style.display = 'block';
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = 'flex';
             } else {
                 badge.style.display = 'none';
             }
         }
 
-        // Open Chat Room
-        let currentChatId = null;
+        // Transaction Functions
+        function orderPackage(influencerId, packageName, price) {
+            if (currentUser.role !== 'umkm') {
+                showToast('Hanya UMKM yang bisa memesan layanan influencer', 'error');
+                return;
+            }
 
-        function openChatRoom(chatId) {
-            currentChatId = chatId;
-            const chat = APP_DATA.chats.find(c => c.id === chatId);
-            if (!chat) return;
-            
-            // Mark as read
-            chat.unread = 0;
-            saveData();
-            
-            document.getElementById('chatRoomAvatar').src = chat.influencerImage;
-            document.getElementById('chatRoomName').textContent = chat.influencerName;
-            
-            const messagesDiv = document.getElementById('chatMessages');
-            messagesDiv.innerHTML = chat.messages.map(msg => `
-                <div class="message ${msg.sender === 'user' ? 'sent' : 'received'}">
-                    <div class="message-bubble">
-                        ${msg.text}
-                        <div class="message-time">${msg.time}</div>
-                    </div>
-                </div>
-            `).join('');
-            
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            showPage('chatRoomPage');
-        }
-
-        // Send Message
-        function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const text = input.value.trim();
-            
-            if (!text || !currentChatId) return;
-            
-            const chat = APP_DATA.chats.find(c => c.id === currentChatId);
-            if (!chat) return;
-            
-            const message = {
-                id: Date.now(),
-                sender: 'user',
-                text,
-                time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-            };
-            
-            chat.messages.push(message);
-            chat.lastMessage = text;
-            chat.lastTime = message.time;
-            saveData();
-            
-            input.value = '';
-            openChatRoom(currentChatId);
-            
-            // Auto reply after 2 seconds
-            setTimeout(() => {
-                const replies = [
-                    'Terima kasih atas pesannya! Saya akan segera merespons.',
-                    'Baik, saya mengerti. Bisa tolong berikan detail lebih lanjut?',
-                    'Saya tertarik dengan penawaran ini. Mari kita diskusikan lebih lanjut.',
-                    'Oke, noted. Saya akan cek dan kabari Anda segera.'
-                ];
-                
-                const reply = {
-                    id: Date.now(),
-                    sender: 'influencer',
-                    text: replies[Math.floor(Math.random() * replies.length)],
-                    time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-                };
-                
-                chat.messages.push(reply);
-                chat.lastMessage = reply.text;
-                chat.lastTime = reply.time;
-                chat.unread = 1;
-                saveData();
-                
-                if (currentChatId === chat.id) {
-                    openChatRoom(currentChatId);
-                }
-            }, 2000);
-        }
-
-        // Enter to send
-        document.getElementById('messageInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
-
-        // Create Transaction
-        function createTransaction(influencerId) {
-            const influencer = INFLUENCERS.find(i => i.id === influencerId);
-            if (!influencer) return;
-            
             const transaction = {
                 id: Date.now(),
-                influencerId,
-                influencerName: influencer.name,
-                influencerImage: influencer.image,
-                category: influencer.category,
-                price: influencer.price,
+                userId: currentUser.id,
+                influencerId: influencerId,
+                packageName: packageName,
+                price: price,
                 status: 'pending',
-                date: new Date().toLocaleDateString('id-ID'),
-                details: 'Campaign promosi produk melalui Instagram post dan story'
+                createdAt: new Date().toISOString()
             };
-            
-            APP_DATA.transactions.push(transaction);
-            saveData();
-            
-            showToast('Penawaran berhasil diajukan!', 'success');
-            showPage('transactionPage');
+
+            let transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            transactions.push(transaction);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+
+            showToast('Pesanan berhasil dibuat! Silakan lanjutkan pembayaran.', 'success');
+            showPage('transactions');
+            loadTransactions();
         }
 
-        // Load Transactions
-        let transactionFilter = 'all';
-
         function loadTransactions() {
-            const list = document.getElementById('transactionList');
-            let filtered = APP_DATA.transactions;
-            
-            if (transactionFilter !== 'all') {
-                filtered = filtered.filter(t => t.status === transactionFilter);
-            }
-            
-            if (filtered.length === 0) {
-                list.innerHTML = `
-                    <div class="empty-state">
-                        <i class="bi bi-receipt"></i>
-                        <h3>Belum ada transaksi</h3>
-                        <p>Ajukan kerja sama dengan influencer</p>
+            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            const userTransactions = transactions.filter(t => 
+                t.userId === currentUser.id || 
+                (currentUser.role === 'influencer' && influencersData.find(inf => inf.id === currentUser.id)?.id === t.influencerId)
+            );
+
+            const container = document.getElementById('transactionList');
+
+            if (userTransactions.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="bi bi-receipt" style="font-size: 4rem; color: #ccc;"></i>
+                        <p class="text-muted mt-3">Belum ada transaksi</p>
                     </div>
                 `;
                 return;
             }
-            
-            list.innerHTML = filtered.map(t => {
-                const statusClass = {
-                    pending: 'status-pending',
-                    active: 'status-active',
-                    completed: 'status-completed',
-                    cancelled: 'status-cancelled'
-                }[t.status];
-                
-                const statusText = {
-                    pending: 'Menunggu',
-                    active: 'Aktif',
-                    completed: 'Selesai',
-                    cancelled: 'Dibatalkan'
-                }[t.status];
-                
+
+            container.innerHTML = userTransactions.map(trans => {
+                const influencer = influencersData.find(inf => inf.id === trans.influencerId);
+                const statusClass = trans.status === 'pending' ? 'status-pending' : 
+                                  trans.status === 'completed' ? 'status-completed' : 'status-cancelled';
+                const statusText = trans.status === 'pending' ? 'Menunggu' : 
+                                 trans.status === 'completed' ? 'Selesai' : 'Dibatalkan';
+
                 return `
                     <div class="transaction-card">
-                        <div class="transaction-header">
-                            <div>
-                                <div class="transaction-title">${t.influencerName}</div>
-                                <div class="transaction-date">${t.date}</div>
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <img src="${influencer?.image || 'https://ui-avatars.com/api/?name=User'}" 
+                                     class="rounded" width="80" height="80" style="object-fit: cover;">
                             </div>
-                            <span class="status-badge ${statusClass}">${statusText}</span>
-                        </div>
-                        <div class="transaction-details">
-                            ${t.details}
-                        </div>
-                        <div class="transaction-price">${t.price}</div>
-                        <div class="transaction-actions">
-                            <button class="btn btn-secondary btn-sm" onclick="viewTransactionDetail(${t.id})">
-                                <i class="bi bi-eye"></i> Detail
-                            </button>
-                            ${t.status === 'pending' ? `
-                                <button class="btn btn-primary btn-sm" onclick="updateTransactionStatus(${t.id}, 'active')">
-                                    <i class="bi bi-check-circle"></i> Terima
-                                </button>
-                            ` : ''}
-                            ${t.status === 'active' ? `
-                                <button class="btn btn-primary btn-sm" onclick="updateTransactionStatus(${t.id}, 'completed')">
-                                    <i class="bi bi-check-circle"></i> Selesai
-                                </button>
-                            ` : ''}
+                            <div class="col-md-6">
+                                <h5 class="fw-bold mb-1">${influencer?.name || 'Unknown'}</h5>
+                                <p class="text-muted mb-1">Paket: ${trans.packageName}</p>
+                                <p class="text-muted small mb-0">Tanggal: ${new Date(trans.createdAt).toLocaleDateString('id-ID')}</p>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <span class="status-badge ${statusClass}">${statusText}</span>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <h5 class="text-primary fw-bold mb-0">Rp ${(trans.price / 1000000).toFixed(1)}jt</h5>
+                                ${trans.status === 'pending' ? '<button class="btn btn-sm btn-primary mt-2" onclick="completeTransaction(' + trans.id + ')">Bayar</button>' : ''}
+                            </div>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        // Transaction Tabs
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                transactionFilter = btn.dataset.status;
+        function completeTransaction(transactionId) {
+            let transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            const transIndex = transactions.findIndex(t => t.id === transactionId);
+            
+            if (transIndex !== -1) {
+                transactions[transIndex].status = 'completed';
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                showToast('Pembayaran berhasil!', 'success');
                 loadTransactions();
-            });
-        });
-
-        // Update Transaction Status
-        function updateTransactionStatus(transactionId, newStatus) {
-            const transaction = APP_DATA.transactions.find(t => t.id === transactionId);
-            if (!transaction) return;
-            
-            transaction.status = newStatus;
-            saveData();
-            
-            const messages = {
-                active: 'Transaksi diaktifkan!',
-                completed: 'Transaksi selesai!',
-                cancelled: 'Transaksi dibatalkan'
-            };
-            
-            showToast(messages[newStatus], 'success');
-            loadTransactions();
-        }
-
-        // View Transaction Detail
-        function viewTransactionDetail(transactionId) {
-            const transaction = APP_DATA.transactions.find(t => t.id === transactionId);
-            if (!transaction) return;
-            
-            const modal = new bootstrap.Modal(document.getElementById('transactionDetailModal'));
-            document.getElementById('transactionDetailContent').innerHTML = `
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="${transaction.influencerImage}" alt="${transaction.influencerName}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 12px;">
-                    <h5>${transaction.influencerName}</h5>
-                    <span class="badge bg-primary">${transaction.category}</span>
-                </div>
-                <div style="margin-bottom: 16px;">
-                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Detail Campaign</label>
-                    <p style="font-size: 14px; margin: 0;">${transaction.details}</p>
-                </div>
-                <div style="margin-bottom: 16px;">
-                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Harga</label>
-                    <p style="font-size: 18px; font-weight: 700; color: var(--primary); margin: 0;">${transaction.price}</p>
-                </div>
-                <div style="margin-bottom: 16px;">
-                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Status</label>
-                    <p style="font-size: 14px; margin: 0;">
-                        <span class="status-badge ${
-                            transaction.status === 'pending' ? 'status-pending' :
-                            transaction.status === 'active' ? 'status-active' :
-                            transaction.status === 'completed' ? 'status-completed' : 'status-cancelled'
-                        }">${
-                            transaction.status === 'pending' ? 'Menunggu' :
-                            transaction.status === 'active' ? 'Aktif' :
-                            transaction.status === 'completed' ? 'Selesai' : 'Dibatalkan'
-                        }</span>
-                    </p>
-                </div>
-                <div>
-                    <label style="font-weight: 600; font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">Tanggal</label>
-                    <p style="font-size: 14px; margin: 0;">${transaction.date}</p>
-                </div>
-            `;
-            modal.show();
-        }
-
-        // Load Profile
-        function loadProfile() {
-            if (!APP_DATA.currentUser) return;
-            
-            document.getElementById('profileName').textContent = APP_DATA.currentUser.name;
-            document.getElementById('profileEmail').textContent = APP_DATA.currentUser.email;
-            document.getElementById('profileAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(APP_DATA.currentUser.name)}&background=3B82F6&color=fff&size=200`;
-            
-            const completedTransactions = APP_DATA.transactions.filter(t => t.status === 'completed').length;
-            document.getElementById('historyCount').textContent = completedTransactions;
-        }
-
-        // Edit Profile
-        function editProfile() {
-            if (!APP_DATA.currentUser) return;
-            
-            document.getElementById('editName').value = APP_DATA.currentUser.name;
-            document.getElementById('editEmail').value = APP_DATA.currentUser.email;
-            
-            const modal = new bootstrap.Modal(document.getElementById('editProfileModal'));
-            modal.show();
-        }
-
-        // Edit Profile Form
-        document.getElementById('editProfileForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const newName = document.getElementById('editName').value;
-            const newEmail = document.getElementById('editEmail').value;
-            
-            APP_DATA.currentUser.name = newName;
-            APP_DATA.currentUser.email = newEmail;
-            
-            // Update in users array
-            const user = APP_DATA.users.find(u => u.id === APP_DATA.currentUser.id);
-            if (user) {
-                user.name = newName;
-                user.email = newEmail;
             }
-            
-            saveData();
-            loadProfile();
-            
-            bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
-            showToast('Profil berhasil diperbarui!', 'success');
-        });
+        }
 
-        // Initialize App
-        checkAuth();
+        // Profile Functions
+        function loadProfile() {
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profileRole').textContent = currentUser.role === 'umkm' ? 'UMKM' : 'Influencer';
+            document.getElementById('profileEmailDetail').textContent = currentUser.email;
+            document.getElementById('profileRoleDetail').textContent = currentUser.role === 'umkm' ? 'UMKM / Perusahaan' : 'Influencer';
+            document.getElementById('profileJoinDate').textContent = new Date(currentUser.joinDate).toLocaleDateString('id-ID');
+
+            // Update avatar
+            const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&size=120&background=fff&color=6366f1`;
+            document.getElementById('profileAvatar').src = avatarUrl;
+
+            // Load statistics
+            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            const userTransactions = transactions.filter(t => t.userId === currentUser.id);
+            const completedTransactions = userTransactions.filter(t => t.status === 'completed');
+            const chats = JSON.parse(localStorage.getItem('chats') || '[]');
+            const userChats = chats.filter(c => c.userId === currentUser.id || c.influencerId === currentUser.id);
+
+            document.getElementById('totalTransactions').textContent = userTransactions.length;
+            document.getElementById('completedTransactions').textContent = completedTransactions.length;
+            document.getElementById('totalChats').textContent = userChats.length;
+        }
+
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const icons = {
+                success: 'bi-check-circle-fill text-success',
+                error: 'bi-x-circle-fill text-danger',
+                info: 'bi-info-circle-fill text-primary'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.innerHTML = `
+                <i class="bi ${icons[type]}" style="font-size: 1.5rem;"></i>
+                <span>${message}</span>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Auto logout after 30 minutes of inactivity
+        let inactivityTimer;
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                showToast('Sesi Anda telah berakhir karena tidak aktif', 'info');
+                logout();
+            }, 30 * 60 * 1000); // 30 minutes
+        }
+
+        document.addEventListener('mousemove', resetInactivityTimer);
+        document.addEventListener('keypress', resetInactivityTimer);
+        document.addEventListener('click', resetInactivityTimer);
+        resetInactivityTimer();
     </script>
 </body>
 </html>
