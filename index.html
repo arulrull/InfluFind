@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#6366f1">
-    <meta name="description" content="InfluFind - Platform pencarian influencer untuk UMKM dan Perusahaan">
-    <title>InfluFind - Temukan Influencer Terbaik</title>
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="description" content= "InfluFind - Platform pencarian influencer untuk UMKM dan Perusahaan">
+    <title>InfluFind - Temukan Influencer Terbaik</title> 
+
+    <!-- Favicon (Logo di Tab Browser) -->
+    <link rel="icon" href="assets/logo512.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logo512.png">
+
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -539,7 +544,7 @@
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNavbar" style="display: none;">
         <div class="container">
             <a class="navbar-brand" href="#" onclick="showPage('home')">
-                <i class="bi bi-stars"></i> InfluFind
+                <i img src="/assets/logo192.png"></i> Inf
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
@@ -887,7 +892,7 @@
 
         // Sample Influencers Data (50 influencers)
         const influencersData = [
-            { id: 1, name: "Rina Wijaya", niche: "Fashion", rating: 5, price: 5000000, followers: "500K", image: "assets/ian1.jpeg", bio: "Fashion blogger dengan pengalaman 5 tahun. Spesialisasi fashion wanita dan lifestyle." },
+            { id: 1, name: "Rina Wijaya", niche: "Fashion", rating: 5, price: 5000000, followers: "500K", image: "assets/8.jpeg", bio: "Fashion blogger dengan pengalaman 5 tahun. Spesialisasi fashion wanita dan lifestyle." },
             { id: 2, name: "Budi Santoso", niche: "Teknologi", rating: 4.8, price: 8000000, followers: "750K", image: "https://i.pravatar.cc/300?img=2", bio: "Tech reviewer profesional. Review gadget dan teknologi terkini." },
             { id: 3, name: "Sari Melati", niche: "Kuliner", rating: 4.9, price: 6000000, followers: "600K", image: "https://i.pravatar.cc/300?img=3", bio: "Food vlogger yang mencintai kuliner nusantara dan internasional." },
             { id: 4, name: "Dimas Prasetyo", niche: "Gaming", rating: 4.7, price: 10000000, followers: "1M", image: "https://i.pravatar.cc/300?img=4", bio: "Pro gamer dan streamer. Spesialisasi Mobile Legends dan PUBG." },
@@ -995,12 +1000,12 @@
                 theme_color: "#6366f1",
                 icons: [
                     {
-                        src: "https://ui-avatars.com/api/?name=IF&size=192&background=6366f1&color=fff",
+                        src: "assets/logo192.png",
                         sizes: "192x192",
                         type: "image/png"
                     },
                     {
-                        src: "https://ui-avatars.com/api/?name=IF&size=512&background=6366f1&color=fff",
+                        src: "assets/logo512.png",
                         sizes: "512x512",
                         type: "image/png"
                     }
